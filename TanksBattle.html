@@ -75,6 +75,7 @@
                 document.getElementById("realBtn").style.display = "inline";
                 document.getElementById("cartoonBtn").style.display = "inline";
                 document.getElementById("backBtn").style.display = "inline";
+                document.getElementById("backBtn").style.zIndex = "3";
 
                 Mode();
                 console.log("gotoMaps called");
@@ -377,7 +378,7 @@
         <img alt="backBtn" src="images/back.png"
              style="height: 85px;width: 198px;top: 82%;left: 81%;position: absolute;" id="backBtn" onclick="gotoUI()">
         <img alt="rematchBtn" src="images/rematch.png"
-             style="height: 85px;width: 198px;top: 82%;left: 81%;position: absolute;" id="rematchBtn" onclick="gotoMaps()">
+             style="height: 85px;width: 198px;top: 82%;left: 81%;position: absolute;" id="rematchBtn" onclick="gotoMode()">
 
         <img alt="sandBtn" src="images/sand.png"
              style="height: 185px;width: 200px;top: 30%;left: 5%;position: absolute;display: inline;" id="sandBtn" onclick="gotoSand()">
