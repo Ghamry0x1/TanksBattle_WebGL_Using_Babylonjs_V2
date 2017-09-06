@@ -5,6 +5,13 @@ var alive = [];
 var lastAlive=0;
 var _isReal;
 
+var backSound;
+var TankExplosion;
+var bulletSound;
+var BulletExplosion;
+var EngineIdle;
+var EngineDriving;
+
 function Game() {
 
     /*Variables*/
@@ -84,13 +91,6 @@ function Game() {
 
     var isPickable = true;
     var isTankReady = false;
-
-    var backSound;
-    var TankExplosion;
-    var bulletSound;
-    var BulletExplosion;
-    var EngineIdle;
-    var EngineDriving;
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 

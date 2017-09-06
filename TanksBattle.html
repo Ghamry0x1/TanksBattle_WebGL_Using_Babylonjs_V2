@@ -108,6 +108,15 @@
                 document.getElementById("instructionsBtn").style.display = "inline";
                 document.getElementById("creditsBtn").style.display = "inline";
 
+                backSound.pause();
+                TankExplosion.pause();
+                bulletSound.pause();
+                BulletExplosion.pause();
+                EngineIdle.pause();
+                EngineDriving.pause();
+
+                document.getElementById("musicPlayer").play();
+
                 UI();
                 console.log("gotoUI called");
             }
