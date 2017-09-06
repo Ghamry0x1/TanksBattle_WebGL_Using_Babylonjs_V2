@@ -21,6 +21,7 @@ function intro() {
     document.getElementById("playBtn").style.display = "none";
     document.getElementById("creditsBtn").style.display = "none";
     document.getElementById("instructionsBtn").style.display = "none";
+    document.getElementById("mainmenuBtn").style.display = "none";
 
     document.getElementById("UICanvas").style.display = "none";
 
