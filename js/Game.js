@@ -232,140 +232,108 @@ function Game() {
 
         waitForIt(true);
     }
-    function designSandMap(isReal){
-        if(isReal) {
-            var terrainMaterial = new BABYLON.TerrainMaterial("terrainMaterial", scene);
-            terrainMaterial.mixTexture = new BABYLON.Texture("images/mixMap.png", scene);
-            terrainMaterial.diffuseTexture1 = new BABYLON.Texture("images/mountain.png", scene);
-            terrainMaterial.diffuseTexture2 = new BABYLON.Texture("images/grass.png", scene);
-            terrainMaterial.diffuseTexture3 = new BABYLON.Texture("images/sand1.png", scene);
-            terrainMaterial.diffuseTexture1.uScale = terrainMaterial.diffuseTexture1.vScale = 10;
-            terrainMaterial.diffuseTexture2.uScale = terrainMaterial.diffuseTexture2.vScale = 10;
-            terrainMaterial.diffuseTexture3.uScale = terrainMaterial.diffuseTexture3.vScale = 10;
-            ground = new BABYLON.Mesh.CreateGroundFromHeightMap("ground", "images/myHeightMap1.png", 500, 500, 50, 0, 30, scene, false, onGroundCreated);
-            function onGroundCreated() {
-                ground.material = terrainMaterial;
-                ground.checkCollisions = true;
-            }
-            for(var i=0;i<30;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-            for(var i=30;i<35;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-            for(var i=35;i<45;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-            for(var i=45;i<55;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-            for(var i=55;i<60;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-            palmTree = createModel("palmTree2.babylon", "tree material", "images/Leaf_CoconutGree.png",modelsPositions, 1.5, 1.5, 1, 60);
-            modelsPositions= [];
-            for(var i=0;i<30;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-            for(var i=30;i<35;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-            for(var i=35;i<45;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-            for(var i=45;i<55;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-            for(var i=55;i<60;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-            palmTree1 = createModel("palmTree1.babylon", "tree material", "images/Leaf_CoconutGree1.png",modelsPositions, 5, 5, 5, 60);
-            modelsPositions= [];
-            for(var i=0;i<30;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-            for(var i=30;i<35;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-            for(var i=35;i<45;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-            for(var i=45;i<55;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-            for(var i=55;i<60;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-            palmTree2 = createModel("palmTree3.babylon", null,null,modelsPositions, 5, 5, 5, 60);
-            modelsPositions= [];
-            for(var i=0;i<30;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-            for(var i=30;i<35;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-            for(var i=35;i<45;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-            for(var i=45;i<55;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-            for(var i=55;i<60;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-            palmTree3 = createModel("palmTree4.babylon", "material","images/Leaf_Palm.png",modelsPositions, 8, 8, 8, 60);
-            modelsPositions= [];
-            for(var i=0;i<500;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-            for(var i=500;i<700;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-            for(var i=700;i<900;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-            for(var i=900;i<1100;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-            for(var i=1100;i<1300;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-            var grass = createModel("grass.babylon", "grass material", "images/Grass1.png",modelsPositions, 1.5, 1, 1.5, 1300);
-            modelsPositions=[];
-            for(var i=0;i<30;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
-            cow = createModel("cow.babylon", null,null,modelsPositions, 1.5, 1, 1.5, 30);
-            modelsPositions=[];
-
-            for(var i=0;i<2;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (80 +90) - 90), 0, (Math.random() * (210 -130) + 130)));
-            for(var i=0;i<2;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (80 +90) - 90), 0, (Math.random() * (-100 +180) - 180)));
-            for(var i=0;i<2;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (190 -110) + 110), 0, (Math.random() * (100 -80) + 80)));
-            for(var i=0;i<2;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +200) - 200), 0, (Math.random() * (100 -80) + 80)));
-            rocks1 = createModel("rocks1.babylon", null,null,modelsPositions, 1.5, 1, 1.5, 8);
-            modelsPositions=[];
-            for(var i=0;i<2;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (80 +90) - 90), 0, (Math.random() * (210 -130) + 130)));
-            for(var i=0;i<2;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (80 +90) - 90), 0, (Math.random() * (-100 +180) - 180)));
-            for(var i=0;i<2;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (190 -110) + 110), 0, (Math.random() * (100 -80) + 80)));
-            for(var i=0;i<2;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +200) - 200), 0, (Math.random() * (100 -80) + 80)));
-            rocks2 = createModel("rocks2.babylon", null,null,modelsPositions, 1.5, 1, 1.5, 8);
-            modelsPositions=[];
-            for(var i=0;i<10;i++)
-                modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
-            cactus = createModel("cactus.babylon", "grass material", "images/Grass1.png",modelsPositions, 0.5, 0.8, 0.5, 20);
+    function designSandMap(){
+        var terrainMaterial = new BABYLON.TerrainMaterial("terrainMaterial", scene);
+        terrainMaterial.mixTexture = new BABYLON.Texture("images/mixMap.png", scene);
+        terrainMaterial.diffuseTexture1 = new BABYLON.Texture("images/mountain.png", scene);
+        terrainMaterial.diffuseTexture2 = new BABYLON.Texture("images/grass.png", scene);
+        terrainMaterial.diffuseTexture3 = new BABYLON.Texture("images/sand1.png", scene);
+        terrainMaterial.diffuseTexture1.uScale = terrainMaterial.diffuseTexture1.vScale = 10;
+        terrainMaterial.diffuseTexture2.uScale = terrainMaterial.diffuseTexture2.vScale = 10;
+        terrainMaterial.diffuseTexture3.uScale = terrainMaterial.diffuseTexture3.vScale = 10;
+        ground = new BABYLON.Mesh.CreateGroundFromHeightMap("ground", "images/myHeightMap1.png", 500, 500, 50, 0, 30, scene, false, onGroundCreated);
+        function onGroundCreated() {
+            ground.material = terrainMaterial;
+            ground.checkCollisions = true;
         }
-        else {
-            console.log("creating sand scene");
-            canvas = document.getElementById("renderCanvas");
-            engine = new BABYLON.Engine(canvas, true);
-            scene = new BABYLON.Scene(engine);
-            engine.isPointerLock = true;
-            engine.enableOfflineSupport = false;
-            scene.enablePhysics(new BABYLON.Vector3(0, -10, 0), new BABYLON.CannonJSPlugin());
-            createAssetsManager();
-            loadSounds();
+        for(var i=0;i<30;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
+        for(var i=30;i<35;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
+        for(var i=35;i<45;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
+        for(var i=45;i<55;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
+        for(var i=55;i<60;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
+        palmTree = createModel("palmTree2.babylon", "tree material", "images/Leaf_CoconutGree.png",modelsPositions, 1.5, 1.5, 1, 60);
+        modelsPositions= [];
+        for(var i=0;i<30;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
+        for(var i=30;i<35;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
+        for(var i=35;i<45;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
+        for(var i=45;i<55;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
+        for(var i=55;i<60;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
+        palmTree1 = createModel("palmTree1.babylon", "tree material", "images/Leaf_CoconutGree1.png",modelsPositions, 5, 5, 5, 60);
+        modelsPositions= [];
+        for(var i=0;i<30;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
+        for(var i=30;i<35;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
+        for(var i=35;i<45;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
+        for(var i=45;i<55;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
+        for(var i=55;i<60;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
+        palmTree2 = createModel("palmTree3.babylon", null,null,modelsPositions, 5, 5, 5, 60);
+        modelsPositions= [];
+        for(var i=0;i<30;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
+        for(var i=30;i<35;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
+        for(var i=35;i<45;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
+        for(var i=45;i<55;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
+        for(var i=55;i<60;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
+        palmTree3 = createModel("palmTree4.babylon", "material","images/Leaf_Palm.png",modelsPositions, 8, 8, 8, 60);
+        modelsPositions= [];
+        for(var i=0;i<500;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
+        for(var i=500;i<700;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
+        for(var i=700;i<900;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
+        for(var i=900;i<1100;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
+        for(var i=1100;i<1300;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
+        var grass = createModel("grass.babylon", "grass material", "images/Grass1.png",modelsPositions, 1.5, 1, 1.5, 1300);
+        modelsPositions=[];
+        for(var i=0;i<30;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
+        cow = createModel("cow.babylon", null,null,modelsPositions, 1.5, 1, 1.5, 30);
+        modelsPositions=[];
 
-            ground = createGround("images/myHeightMap.png", "images/sand.jpg");
-            light = createLight();
-            var skybox = createSkybox("images/skybox/skybox/skybox", true);
-            for(var i=0;i<n;i++) {
-                createTank(tankNames[i], i);
-            }
-
-            cactus = createModel("cactus.babylon", "cactusMaterial", new BABYLON.Color3(.3, .7, .2), .5, 1, .5, 18);
-            radar = createModel("radar.babylon", null, null, 1, 1, 1, 5);
-            cow = createModel("cow.babylon", null, null, 1, 1, 1, 25);
-            helipad = createModel("helipad.babylon", null, null, 2, 1, 2, 3);
-            oilStorage = createModel("oilStorage.babylon", null, null, 3, 1, 3, 2);
-            palmTree = createModel("palmTree.babylon", null, null, 1.5, 1, 1.5, 15);
-            tree = createModel("tree.babylon", null, null, 1.5, 1, 1.5, 15);
-            rocks1 = createModel("rocks1.babylon", null, null, 1, 1, 1, 7);
-            rocks2 = createModel("rocks2.babylon", null, null, 1, 1, 1, 7);
-            barrel = createModel("barrel.babylon", null, null, 1, 1, 1, 16);
-        }
-
+        for(var i=0;i<2;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (80 +90) - 90), 0, (Math.random() * (210 -130) + 130)));
+        for(var i=0;i<2;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (80 +90) - 90), 0, (Math.random() * (-100 +180) - 180)));
+        for(var i=0;i<2;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (190 -110) + 110), 0, (Math.random() * (100 -80) + 80)));
+        for(var i=0;i<2;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +200) - 200), 0, (Math.random() * (100 -80) + 80)));
+        rocks1 = createModel("rocks1.babylon", null,null,modelsPositions, 1.5, 1, 1.5, 8);
+        modelsPositions=[];
+        for(var i=0;i<2;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (80 +90) - 90), 0, (Math.random() * (210 -130) + 130)));
+        for(var i=0;i<2;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (80 +90) - 90), 0, (Math.random() * (-100 +180) - 180)));
+        for(var i=0;i<2;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (190 -110) + 110), 0, (Math.random() * (100 -80) + 80)));
+        for(var i=0;i<2;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +200) - 200), 0, (Math.random() * (100 -80) + 80)));
+        rocks2 = createModel("rocks2.babylon", null,null,modelsPositions, 1.5, 1, 1.5, 8);
+        modelsPositions=[];
+        for(var i=0;i<10;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
+        cactus = createModel("cactus.babylon", "grass material", "images/Grass1.png",modelsPositions, 0.5, 0.8, 0.5, 20);
     }
 
     function createFogScene() {
@@ -680,109 +648,61 @@ function Game() {
 
     }
 
-    function waitForIt(isReal) {
+    function waitForIt() {
         console.log("wait for it");
+        loadAssetsManager();
 
-        if(isReal) {
-            loadAssetsManager();
+        followCamera = createFollowCamera(currentTank);
+        scene.activeCamera = followCamera;
+        scene.collisionsEnabled = true;
 
-            followCamera = createFollowCamera(currentTank);
-            scene.activeCamera = followCamera;
-            scene.collisionsEnabled = true;
-
-            followCamera.attachControl(canvas);
-            followCamera.applyGravity = true;
-            followCamera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
-            followCamera.checkCollisions = true;
-            assetsManager.onFinish = function (tasks) {
-                engine.runRenderLoop(function () {
-                    if(gameOver == 0) {
-                        scene.render();
-                        if(tank.length===n) {
-                            generatedBullets.forEach(function (powerup) {
-                                tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
-                                    trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
-                                    parameter: {mesh: powerup}
-                                }, function () {
-                                    powerup.dispose();
-                                    console.log("power up taken");
-                                }));
-                            });
-                        }
-                        if(bullet) {
-                            bullet.position.z += (Math.sin(bullet.rotation.y) * bullet.speed);
-                            bullet.position.x -= Math.cos(bullet.rotation.y) * bullet.speed;
-                        }
-                        if(direction&&bullet){
-                            direction.x -= Math.cos(bullet.rotation.y) * bullet.speed;
-                            direction.z += Math.sin(bullet.rotation.y) * bullet.speed;
-                        }
-                        if (!followCamera.lockedTarget&&cameraLocked) {
-                            cameraLocked=false;
-                            followCamera.lockedTarget = tank[currentTank];
-                        }
-                        for(var i=0;i<generatedBullets.length;i++)
-                            generatedBullets[i].rotation.y+=0.05;
-                        if (movementLimit <= 0)
-                            dontMove=true;
-
-                        applyTankMovements();
-                        checkGameOver();
+        followCamera.attachControl(canvas);
+        followCamera.applyGravity = true;
+        followCamera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
+        followCamera.checkCollisions = true;
+        assetsManager.onFinish = function (tasks) {
+            engine.runRenderLoop(function () {
+                if(gameOver == 0) {
+                    scene.render();
+                    if(tank.length===n) {
+                        generatedBullets.forEach(function (powerup) {
+                            tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                                trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                                parameter: {mesh: powerup}
+                            }, function () {
+                                powerup.dispose();
+                                console.log("power up taken");
+                            }));
+                        });
                     }
-                    else {
-                        GameOver();
-                        var musicPlayer = document.getElementById("musicPlayer");
-                        musicPlayer.play();
-                        reset();
+                    if(bullet) {
+                        bullet.position.z += (Math.sin(bullet.rotation.y) * bullet.speed);
+                        bullet.position.x -= Math.cos(bullet.rotation.y) * bullet.speed;
                     }
-                });
-            };
-        }
-        else {
-            loadAssetsManager();
-
-            followCamera = createFollowCamera(currentTank);
-            scene.activeCamera = followCamera;
-            scene.collisionsEnabled = true;
-
-            followCamera.attachControl(canvas);
-            followCamera.applyGravity = true;
-            followCamera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
-            followCamera.checkCollisions = true;
-
-            assetsManager.onFinish = function (tasks) {
-                engine.runRenderLoop(function () {
-                    if(gameOver == 0) {
-                        scene.render();
-                        if(bullet) {
-                            bullet.position.z += (Math.sin(bullet.rotation.y) * bullet.speed);
-                            bullet.position.x -= Math.cos(bullet.rotation.y) * bullet.speed;
-                        }
-                        if(direction&&bullet){
-                            direction.x -= Math.cos(bullet.rotation.y) * bullet.speed;
-                            direction.z += Math.sin(bullet.rotation.y) * bullet.speed;
-                        }
-                        if (!followCamera.lockedTarget&&cameraLocked) {
-                            cameraLocked=false;
-                            followCamera.lockedTarget = tank[currentTank];
-                        }
-
-                        if (movementLimit <= 0)
-                            dontMove=true;
-
-                        applyTankMovements();
-                        checkGameOver();
+                    if(direction&&bullet){
+                        direction.x -= Math.cos(bullet.rotation.y) * bullet.speed;
+                        direction.z += Math.sin(bullet.rotation.y) * bullet.speed;
                     }
-                    else {
-                        GameOver();
-                        var musicPlayer = document.getElementById("musicPlayer");
-                        musicPlayer.play();
-                        reset();
+                    if (!followCamera.lockedTarget&&cameraLocked) {
+                        cameraLocked=false;
+                        followCamera.lockedTarget = tank[currentTank];
                     }
-                });
-            };
-        }
+                    for(var i=0;i<generatedBullets.length;i++)
+                        generatedBullets[i].rotation.y+=0.05;
+                    if (movementLimit <= 0)
+                        dontMove=true;
 
+                    applyTankMovements();
+                    checkGameOver();
+                }
+                else {
+                    GameOver();
+                    var musicPlayer = document.getElementById("musicPlayer");
+                    musicPlayer.play();
+                    reset();
+                }
+            });
+        };
     }
 
 
@@ -811,18 +731,6 @@ function Game() {
             skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
         }
         return skybox;
-    }
-    function createGround(heightmap, texture) {
-        var ground = new BABYLON.Mesh.CreateGroundFromHeightMap("ground", heightmap, 500, 500, 20, 0, 10, scene, false, onGroundCreated);
-
-        var groundMaterial = new BABYLON.StandardMaterial("m1", scene);
-        groundMaterial.diffuseTexture = new BABYLON.Texture(texture, scene);
-        function onGroundCreated() {
-            ground.material = groundMaterial;
-            ground.checkCollisions = true;
-        }
-
-        return ground;
     }
 
 
@@ -1257,6 +1165,7 @@ function Game() {
             bullet.dispose();
         }, 2000);
     }
+
     function generatePowerUp(num){
         for(var i=0;i<num;i++){
             generatedBullets[i] = BABYLON.Mesh.CreateBox("bullet", 1, scene);
@@ -1269,6 +1178,7 @@ function Game() {
 
         }
     }
+
     function createExplosion(x,y,z){
         if(bullet) {
             var fireSystem = new BABYLON.ParticleSystem("particles", 2000, scene);
@@ -1510,46 +1420,6 @@ function Game() {
         };
     }
 
-    /*function createModel(modelName, materialName, modelColor, x, y, z, num) {
-        var modelTask = assetsManager.addMeshTask("model task", "", "GameObjects/", modelName);
-        modelTask.onSuccess = function (task) {
-            console.log("createModel called");
-            var newMeshes = task.loadedMeshes;
-            var model = [];
-            model[0] = newMeshes[0];
-            if (materialName) {
-                var modelMaterial = new BABYLON.StandardMaterial(materialName, scene);
-                modelMaterial.diffuseColor = modelColor;
-                model[0].material = modelMaterial;
-            }
-            model[0].checkCollisions = true;
-            model[0].ellipsoid = new BABYLON.Vector3(1, 1, 1);
-            model[0].ellipsoidOffset = new BABYLON.Vector3(0, 2, 0);
-            model[0].applyGravity = true;
-
-            if (modelName === "cow.babylon") {
-                model[0].checkCollisions = false;
-            }
-
-            model = clone(model[0], num);
-            console.log(model.length);
-            for (var i = 0; i < model.length; i++) {
-                var scale = Math.random() * 4.5 + 0.5;
-                model[i].scaling.x *= (x);
-                model[i].scaling.y *= (y);
-                model[i].scaling.z *= (z);
-            }
-            for (var i = 0; i < model.length; i++) {
-                //shadowGenerator.getShadowMap().renderList.push(model[i]);
-                model[i].position.x += (Math.random() * (200 + 200) - 200);
-                model[i].position.z += (Math.random() * (200 + 200) - 200);
-            }
-            for(var i = 0;i<model.length;i++){
-                models.push(model[i]);
-            }
-            return model;
-        }
-    }*/
     function createModel(modelName, materialName, modelColor,positions, x, y, z, num) {
         var modelTask = assetsManager.addMeshTask("model task", "", "GameObjects/", modelName);
         modelTask.onSuccess = function (task) {
@@ -1698,6 +1568,7 @@ function Game() {
         EngineIdle.stop();
         EngineDriving.stop();
     }
+
     function checkGameOver(){
         var aliveCounter=0;
         for(var i=0 ; i<n; i++){
