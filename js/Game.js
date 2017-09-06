@@ -42,7 +42,6 @@ function Game() {
     var delayRayShot=false;
     var hasShot = false;
     var bullet;
-    var isMoving=false;
     var currentTank = 0;
     var generatedBullets = [];
 
@@ -63,13 +62,9 @@ function Game() {
     var palmTree3 = [];
     var tree = [];
     var treeLeaf = [];
-    var tree1 = [];
-    var treeLeaf1 = [];
     var tree2 = [];
     var treeLeaf2 = [];
-    var grass1 = [];
-    var grass2 = [];
-    var grass3 = [];
+    var grass = [];
     var rocks1 = [];
     var rocks2 = [];
     var barrel = [];
@@ -304,7 +299,7 @@ function Game() {
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
         for(var i=1100;i<1300;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-        var grass = createModel("grass.babylon", "grass material", "images/Grass1.png",modelsPositions, 1.5, 1, 1.5, 1300);
+        grass = createModel("grass.babylon", "grass material", "images/Grass1.png",modelsPositions, 1.5, 1, 1.5, 1300);
         modelsPositions=[];
         for(var i=0;i<30;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
@@ -1441,6 +1436,7 @@ function Game() {
 
             if (modelName === "cow.babylon"||modelName==="grass.babylon"||modelName==="palmTree3.babylon"||modelName==="treeLeaf1.babylon"||modelName==="treeLeaf3.babylon") {
                 model[0].checkCollisions = false;
+                model[0].isPickable = false;
             }
 
             model = clone(model[0], num);
@@ -1454,7 +1450,7 @@ function Game() {
             for (var i = 0; i < positions.length; i++) {
                 model[i].position=positions[i].clone();
             }
-            if(modelName!=="grass.babylon"||modelName !== "cow.babylon"||modelName!=="grass.babylon"||modelName!=="palmTree3.babylon"||modelName!=="treeLeaf1.babylon"||modelName!=="treeLeaf2.babylon")
+            if(modelName!=="grass.babylon"&&modelName !== "cow.babylon"&&modelName!=="grass.babylon"&&modelName!=="palmTree3.babylon"&&modelName!=="treeLeaf1.babylon"&&modelName!=="treeLeaf2.babylon")
                 for(var i = 0;i<model.length;i++){
                     models.push(model[i]);
                 }
@@ -1696,7 +1692,7 @@ function GameCartoon() {
             isAPressed = true;
         }
         if (event.key == 's' || event.key == 'S') {
-            if(!EngineDriving.isPlaying) {
+            if(!EngineDriving.isPlaying && movementLimit>=0) {
                 EngineDriving.play();
                 EngineIdle.stop();
             }
@@ -1706,7 +1702,7 @@ function GameCartoon() {
             isDPressed = true;
         }
         if (event.key == 'w' || event.key == 'W') {
-            if(!EngineDriving.isPlaying) {
+            if(!EngineDriving.isPlaying && movementLimit>=0) {
                 EngineDriving.play();
                 EngineIdle.stop();
             }
@@ -1859,8 +1855,6 @@ function GameCartoon() {
         for(var i=0;i<n;i++) {
             createTank(tankNames[i], i);
         }
-
-
 
         waitForIt();
     }
