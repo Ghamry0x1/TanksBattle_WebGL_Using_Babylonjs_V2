@@ -1056,7 +1056,7 @@ function Game() {
         }
     }
 
-    function destroyTank(tankID){
+    function destroyTank(tankID) {
         tank[tankID].bounder.isPickable=false;
         createBustedTank(tankID);
         createFire(tankID);
@@ -1645,14 +1645,7 @@ function GameCartoon() {
     var isPickable = true;
     var isTankReady = false;
 
-    var backSound;
-    var TankExplosion;
-    var bulletSound;
-    var BulletExplosion;
-    var EngineIdle;
-    var EngineDriving;
-
-    /*--------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 
     /*Listeners*/
     document.addEventListener("keyup", function () {
@@ -1692,7 +1685,7 @@ function GameCartoon() {
             isAPressed = true;
         }
         if (event.key == 's' || event.key == 'S') {
-            if(!EngineDriving.isPlaying && movementLimit>=0) {
+            if(!EngineDriving.isPlaying&&movementLimit!==0) {
                 EngineDriving.play();
                 EngineIdle.stop();
             }
@@ -1702,7 +1695,7 @@ function GameCartoon() {
             isDPressed = true;
         }
         if (event.key == 'w' || event.key == 'W') {
-            if(!EngineDriving.isPlaying && movementLimit>=0) {
+            if(!EngineDriving.isPlaying&&movementLimit!==0) {
                 EngineDriving.play();
                 EngineIdle.stop();
             }
