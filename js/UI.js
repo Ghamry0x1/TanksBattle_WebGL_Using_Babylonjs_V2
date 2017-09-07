@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", UI, false);
+document.addEventListener("DOMContentLoaded", intro, false);
 
 function intro() {
     document.getElementById("renderCanvas").style.display = "none";
@@ -15,6 +15,8 @@ function intro() {
     document.getElementById("fogBtn").style.display = "none";
     document.getElementById("snowBtn").style.display = "none";
     document.getElementById("forestBtn").style.display = "none";
+    document.getElementById("snowLockedBtn").style.display = "none";
+    document.getElementById("forestLockedBtn").style.display = "none";
 
     document.getElementById("backBtn").style.display = "none";
     document.getElementById("rematchBtn").style.display = "none";
@@ -67,6 +69,8 @@ function UI() {
     document.getElementById("fogBtn").style.display = "none";
     document.getElementById("snowBtn").style.display = "none";
     document.getElementById("forestBtn").style.display = "none";
+    document.getElementById("snowLockedBtn").style.display = "none";
+    document.getElementById("forestLockedBtn").style.display = "none";
 
     document.getElementById("backBtn").style.display = "none";
     document.getElementById("rematchBtn").style.display = "none";
