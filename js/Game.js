@@ -1278,25 +1278,17 @@ function Game() {
 
     function generatePowerUp(powerup,powerupMaterial,taken,modelName,num){
         for(var i=0;i<num;i++){
-            powerup[i] = BABYLON.Mesh.CreateBox("bullet", 1, scene);
+            powerup[i] = BABYLON.Mesh.CreateBox("bullet", 1.5, scene);
             powerup[i].position = new BABYLON.Vector3((Math.random() * (200 + 200) - 200),1,(Math.random() * (200 + 200) - 200));
             powerup[i].checkCollisions = false;
             powerupMaterial= new BABYLON.StandardMaterial("alpha", scene);
-            if(modelName===1)
-                powerupMaterial.diffuseColor = new BABYLON.Color3.Black();
-            if(modelName===2)
-                powerupMaterial.diffuseColor = new BABYLON.Color3.Blue();
-            if(modelName===3)
-                powerupMaterial.diffuseColor = new BABYLON.Color3.Red();
-            if(modelName===4)
-                powerupMaterial.diffuseColor = new BABYLON.Color3.Green();
+            powerupMaterial.diffuseTexture = new BABYLON.Texture("images/box.png", scene);
             taken[i]=false;
             powerupMaterial.alpha = 1;
             powerup[i].material=powerupMaterial;
             powerup[i].visibility = true;
             powerup[i].isPickable=true;
             powerup[i].id = i;
-
         }
     }
 
