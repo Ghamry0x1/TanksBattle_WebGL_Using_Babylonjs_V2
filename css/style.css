@@ -141,6 +141,23 @@ body,
     float: left;
 }
 
+#powerupsTextContainer {
+    width: 360px;
+    z-index: 2;
+    top: 19%;
+    right: 37%;
+    position: absolute;
+    margin: auto;
+    text-align: center;
+}
+#powerupText {
+    z-index: 2;
+    position: relative;
+    color: #eeeeee;
+    font-family: "Comic Sans MS";
+    font-size: 40px;
+    display: none;
+}
 
 @keyframes slider {
     0% {

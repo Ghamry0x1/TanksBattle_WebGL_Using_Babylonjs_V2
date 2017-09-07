@@ -698,6 +698,11 @@ function Game() {
                                     powerups.play();
                                     console.log("bullets taken");
                                     console.log(tankBullets[currentTank]);
+
+                                    document.getElementById("powerupText").innerHTML = "+2 BULLETS";
+                                    $('#powerupText').fadeIn(1000);
+                                    $('#powerupText').fadeOut(800);
+
                                 }
                             }));
                         });
@@ -710,6 +715,11 @@ function Game() {
                                     powerupTaken2[powerup.id] = true;
                                     powerup.visibility = false;
                                     powerups.play();
+
+                                    document.getElementById("powerupText").innerHTML = "+20 HEALTH";
+                                    $('#powerupText').fadeIn(1000);
+                                    $('#powerupText').fadeOut(800);
+
                                     if(healthPercentage[currentTank]<100) {
                                         damage = -20;
                                         updateHealthBar(currentTank);
@@ -729,6 +739,11 @@ function Game() {
                                     powerupTaken3[powerup.id] = true;
                                     powerup.visibility = false;
                                     powerups.play();
+
+                                    document.getElementById("powerupText").innerHTML = "+75m +5s";
+                                    $('#powerupText').fadeIn(1000);
+                                    $('#powerupText').fadeOut(800);
+
                                     movementLimit += 75;
                                     turnTimer += 5;
                                     console.log("extra distance taken");
@@ -744,6 +759,11 @@ function Game() {
                                     powerupTaken4[powerup.id] = true;
                                     powerup.visibility = false;
                                     powerups.play();
+
+                                    document.getElementById("powerupText").innerHTML = "DOUBLE DAMAGE";
+                                    $('#powerupText').fadeIn(1000);
+                                    $('#powerupText').fadeOut(800);
+
                                     damage=40;
                                     console.log("double damage taken");
                                 }
