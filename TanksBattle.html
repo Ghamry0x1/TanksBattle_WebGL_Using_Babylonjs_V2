@@ -45,21 +45,15 @@
 
                 document.getElementById("sandBtn").style.display = "inline";
                 document.getElementById("fogBtn").style.display = "inline";
-
-                $('#realBtn').click(function() {
-                    console.log("realBtnis clicked");
-                    document.getElementById("snowLockedBtn").style.display = "inline";
-                    document.getElementById("forestBtn").style.display = "inline";
-                    document.getElementById("forestLockedBtn").style.display = "none";
-                    document.getElementById("snowBtn").style.display = "none";
-                });
+                document.getElementById("snowBtn").style.display = "inline";
+                document.getElementById("forestBtn").style.display = "inline";
 
                 $('#cartoonBtn').click(function() {
                     console.log("cartoonBtnis clicked");
-                    document.getElementById("snowBtn").style.display = "inline";
-                    document.getElementById("snowLockedBtn").style.display = "none";
-                    document.getElementById("forestLockedBtn").style.display = "inline";
+                    document.getElementById("snowBtn").style.display = "none";
                     document.getElementById("forestBtn").style.display = "none";
+                    document.getElementById("snowLockedBtn").style.display = "block";
+                    document.getElementById("forestLockedBtn").style.display = "block";
                 });
 
                 Maps();
@@ -448,12 +442,10 @@
         <img alt="forestLockedBtn" src="images/forestLocked.png"
              style="height: 185px;width: 200px;top: 30%;left: 57.8%;position: absolute;display: inline;" id="forestLockedBtn">
 
-
-
         <img alt="realBtn" src="images/real.png"
-             style="height: 590px;width: 625px;top: 0%;left: 0%;position: absolute;display: inline;" id="realBtn" onclick="gotoMaps(), _isReal = true">
+             style="height: 100%;width: 50%;top: 0%;left: 0%;position: absolute;display: inline;" id="realBtn" onclick="gotoMaps(), _isReal = true">
         <img alt="cartoonBtn" src="images/cartoon.png"
-             style="height: 590px;width: 616px;top: 0%;right: 0%;position: absolute;display: inline;" id="cartoonBtn" onclick="gotoMaps(), _isReal = false">
+             style="height: 100%;width: 50%;top: 0%;right: 0%;position: absolute;display: inline;" id="cartoonBtn" onclick="gotoMaps(), _isReal = false">
 
         <!-- ADS -->
         <div id="slider" >
