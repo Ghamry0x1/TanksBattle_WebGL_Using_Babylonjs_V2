@@ -503,8 +503,6 @@ function Game() {
             createTank(tankNames[i], i);
         }
 
-
-
         waitForIt();
     }
     function designSnowMap(){
@@ -1833,8 +1831,6 @@ function GameCartoon() {
     var isPickable = true;
     var isTankReady = false;
 
-    var snowMap;
-
 /*--------------------------------------------------------------------------------------------------------------------*/
 
     /*Listeners*/
@@ -1926,10 +1922,7 @@ function GameCartoon() {
     function loadAssetsManager() {
         if (assetsManager) {
             assetsManager.load();
-            if(snowMap)
-                setupTanksPositions2();
-            else
-                setupTanksPositions();
+            setupTanksPositions();
         }
         else {
             setTimeout(function () {
@@ -2035,37 +2028,13 @@ function GameCartoon() {
         createAssetsManager();
         loadSounds();
 
-
-        ground = new BABYLON.Mesh.CreateGroundFromHeightMap("ground", "images/myHeightMap2.png", 500, 500, 20, 0, 50, scene, false, onGroundCreated);
-        var groundMaterial = new BABYLON.StandardMaterial("m1", scene);
-        groundMaterial.diffuseTexture = new BABYLON.Texture("images/snow.jpg", scene);
-        function onGroundCreated() {
-            ground.material = groundMaterial;
-            ground.checkCollisions = true;
-        }
-
+        ground = createGround("images/myHeightMap.png", "images/snow.jpg");
         light = createLight(2);
-
-        var skybox = BABYLON.Mesh.CreateBox("skyBox", 500, scene);
-        var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
-        skyboxMaterial.backFaceCulling = false;
-        skyboxMaterial.disableLighting = true;
-        skybox.material = skyboxMaterial;
-        skybox.infiniteDistance = false;
-        skyboxMaterial.disableLighting = true;
-        var skyBoxTextureTask = assetsManager.addCubeTextureTask("skybox texture task", "images/skybox/IceRiver/IceRiver");
-        skyBoxTextureTask.onSuccess = function (task) {
-            skyboxMaterial.reflectionTexture = task.texture;
-            skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-        }
-
-        skybox.position.y = 40;
-
+        var skybox = createSkybox("images/skybox/IceRiver/IceRiver", false);
         for(var i=0;i<n;i++) {
             createTank(tankNames[i], i);
         }
 
-        snowMap = true;
         waitForIt();
     }
 
@@ -2249,17 +2218,6 @@ function GameCartoon() {
         tanksPositions.push(new BABYLON.Vector3(125,0,-125));
         tanksPositions.push(new BABYLON.Vector3(-125,0,125));
         tanksPositions.push(new BABYLON.Vector3(-125,0,-125));
-    }
-
-    function setupTanksPositions2() {
-        tanksPositions.push(new BABYLON.Vector3(125,39,0));
-        tanksPositions.push(new BABYLON.Vector3(-125,39,0));
-        tanksPositions.push(new BABYLON.Vector3(-180,39,125));
-        tanksPositions.push(new BABYLON.Vector3(160,39,-125));
-        tanksPositions.push(new BABYLON.Vector3(125,39,125));
-        tanksPositions.push(new BABYLON.Vector3(125,39,-125));
-        tanksPositions.push(new BABYLON.Vector3(-125,39,125));
-        tanksPositions.push(new BABYLON.Vector3(-125,39,-125));
     }
 
     function applyTankMovements() {
