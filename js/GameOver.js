@@ -12,6 +12,8 @@ function GameOver() {
     document.getElementById("sandBtn").style.display = "none";
     document.getElementById("fogBtn").style.display = "none";
     document.getElementById("backBtn").style.display = "none";
+    document.getElementById("snowLockedBtn").style.display = "none";
+    document.getElementById("forestLockedBtn").style.display = "none";
 
     document.getElementById("ModeCanvas").style.display = "none";
     document.getElementById("realBtn").style.display = "none";
