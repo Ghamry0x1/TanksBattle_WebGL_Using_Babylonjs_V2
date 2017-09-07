@@ -10,6 +10,7 @@ function intro() {
     document.getElementById("slider").style.display = "none";
     document.getElementById("NTanksContainer").style.display = "none";
     document.getElementById("WinnerContainer").style.display = "none";
+    document.getElementById("BulletsContainer").style.display = "none";
 
     document.getElementById("sandBtn").style.display = "none";
     document.getElementById("fogBtn").style.display = "none";
@@ -64,6 +65,7 @@ function UI() {
     document.getElementById("slider").style.display = "none";
     document.getElementById("NTanksContainer").style.display = "none";
     document.getElementById("WinnerContainer").style.display = "none";
+    document.getElementById("BulletsContainer").style.display = "none";
 
     document.getElementById("sandBtn").style.display = "none";
     document.getElementById("fogBtn").style.display = "none";
