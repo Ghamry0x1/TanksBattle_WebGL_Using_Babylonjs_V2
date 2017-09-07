@@ -13,6 +13,8 @@ var EngineIdle;
 var EngineDriving;
 var powerups;
 
+var nBullets;
+
 function Game() {
 
     /*Variables*/
@@ -1605,6 +1607,7 @@ function Game() {
         document.getElementById("PlayerContainer").style.display = "block";
         PlayerTime = document.getElementById("PlayerTime");
         PlayerDistance = document.getElementById("PlayerDistance");
+        nBullets = document.getElementById("nBullets");
         countTime2 = setInterval(function () {
             if (turnTimer > 0)
                 turnTimer--;
@@ -1616,6 +1619,8 @@ function Game() {
             }
             PlayerTime.innerHTML = "Player " + (currentTank + 1) + " time  left: " + turnTimer + "s";
             PlayerDistance.innerHTML = "Player " + (currentTank + 1) + " distance left: " + movementLimit + "m";
+            if(tankBullets[currentTank])
+                nBullets.innerHTML = tankBullets[currentTank];
             if (turnTimer <= 0 && !isFPressed) {
                 switchTanks();
                 countTime2;

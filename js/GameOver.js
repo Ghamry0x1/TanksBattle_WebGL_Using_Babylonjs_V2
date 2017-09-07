@@ -8,6 +8,7 @@ function GameOver() {
     document.getElementById("PlayerContainer").style.display = "none";
     document.getElementById("slider").style.display = "none";
     document.getElementById("NTanksContainer").style.display = "none";
+    document.getElementById("BulletsContainer").style.display = "none";
 
     document.getElementById("sandBtn").style.display = "none";
     document.getElementById("fogBtn").style.display = "none";

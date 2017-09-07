@@ -29,6 +29,7 @@
                 document.getElementById("GameOverCanvas").style.display = "none";
 
                 document.getElementById("WinnerContainer").style.display = "none";
+                document.getElementById("BulletsContainer").style.display = "none";
 
                 document.getElementById("playBtn").style.display = "none";
                 document.getElementById("instructionsBtn").style.display = "none";
@@ -67,6 +68,7 @@
                 document.getElementById("GameOverCanvas").style.display = "none";
 
                 document.getElementById("WinnerContainer").style.display = "none";
+                document.getElementById("BulletsContainer").style.display = "none";
 
                 document.getElementById("playBtn").style.display = "none";
                 document.getElementById("instructionsBtn").style.display = "none";
@@ -102,6 +104,7 @@
 
                 document.getElementById("WinnerContainer").style.display = "none";
                 document.getElementById("NTanksContainer").style.display = "none";
+                document.getElementById("BulletsContainer").style.display = "none";
 
                 document.getElementById("backBtn").style.display = "none";
                 document.getElementById("sandBtn").style.display = "none";
@@ -122,13 +125,6 @@
                 document.getElementById("instructionsBtn").style.display = "inline";
                 document.getElementById("creditsBtn").style.display = "inline";
 
-                backSound.pause();
-                TankExplosion.pause();
-                bulletSound.pause();
-                BulletExplosion.pause();
-                EngineIdle.pause();
-                EngineDriving.pause();
-
                 document.getElementById("musicPlayer").play();
 
                 UI();
@@ -142,6 +138,7 @@
                 document.getElementById("GameOverCanvas").style.display = "none";
 
                 document.getElementById("WinnerContainer").style.display = "none";
+                document.getElementById("BulletsContainer").style.display = "none";
 
                 document.getElementById("playBtn").style.display = "none";
                 document.getElementById("instructionsBtn").style.display = "none";
@@ -174,6 +171,7 @@
                 document.getElementById("GameOverCanvas").style.display = "none";
 
                 document.getElementById("WinnerContainer").style.display = "none";
+                document.getElementById("BulletsContainer").style.display = "none";
 
                 document.getElementById("playBtn").style.display = "none";
                 document.getElementById("instructionsBtn").style.display = "none";
@@ -229,6 +227,7 @@
                 document.getElementById("PlayerContainer").style.display = "block";
                 document.getElementById("slider").style.display = "block";
                 document.getElementById("mainmenuBtn").style.display = "inline";
+                document.getElementById("BulletsContainer").style.display = "inline";
 
                 var musicPlayer = document.getElementById("musicPlayer");
                 musicPlayer.pause();
@@ -278,6 +277,7 @@
                 document.getElementById("PlayerContainer").style.display = "block";
                 document.getElementById("slider").style.display = "block";
                 document.getElementById("mainmenuBtn").style.display = "inline";
+                document.getElementById("BulletsContainer").style.display = "inline";
 
                 var musicPlayer = document.getElementById("musicPlayer");
                 musicPlayer.pause();
@@ -327,6 +327,7 @@
                 document.getElementById("PlayerContainer").style.display = "block";
                 document.getElementById("slider").style.display = "block";
                 document.getElementById("mainmenuBtn").style.display = "inline";
+                document.getElementById("BulletsContainer").style.display = "inline";
 
                 var musicPlayer = document.getElementById("musicPlayer");
                 musicPlayer.pause();
@@ -367,6 +368,7 @@
 
                 document.getElementById("NTanksContainer").style.display = "none";
                 document.getElementById("WinnerContainer").style.display = "none";
+                document.getElementById("BulletsContainer").style.display = "inline";
 
                 document.getElementById("ModeCanvas").style.display = "none";
                 document.getElementById("realBtn").style.display = "none";
@@ -413,6 +415,10 @@
         </div>
         <div id="WinnerContainer">
             <div id="Winner"></div>
+        </div>
+        <div id="BulletsContainer">
+            <img id="bullet" src="images/bullet.png" alt="bullet">
+            <div id="nBullets"></div>
         </div>
 
         <!-- BUTTONS -->
