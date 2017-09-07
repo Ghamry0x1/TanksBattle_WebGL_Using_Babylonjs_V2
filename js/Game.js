@@ -11,6 +11,7 @@ var bulletSound;
 var BulletExplosion;
 var EngineIdle;
 var EngineDriving;
+var powerups;
 
 function Game() {
 
@@ -692,6 +693,7 @@ function Game() {
                                     powerupTaken1[powerup.id] = true;
                                     powerup.visibility = false;
                                     tankBullets[currentTank] += 2;
+                                    powerups.play();
                                     console.log("bullets taken");
                                     console.log(tankBullets[currentTank]);
                                 }
@@ -705,6 +707,7 @@ function Game() {
                                 if(!powerupTaken2[powerup.id]) {
                                     powerupTaken2[powerup.id] = true;
                                     powerup.visibility = false;
+                                    powerups.play();
                                     if(healthPercentage[currentTank]<100) {
                                         damage = -20;
                                         updateHealthBar(currentTank);
@@ -723,6 +726,7 @@ function Game() {
                                 if(!powerupTaken3[powerup.id]) {
                                     powerupTaken3[powerup.id] = true;
                                     powerup.visibility = false;
+                                    powerups.play();
                                     movementLimit += 75;
                                     turnTimer += 5;
                                     console.log("extra distance taken");
@@ -737,6 +741,7 @@ function Game() {
                                 if(!powerupTaken4[powerup.id]) {
                                     powerupTaken4[powerup.id] = true;
                                     powerup.visibility = false;
+                                    powerups.play();
                                     damage=40;
                                     console.log("double damage taken");
                                 }
@@ -1647,6 +1652,11 @@ function Game() {
         binaryTask = assetsManager.addBinaryFileTask("BulletExplosion task", "AudioClips/BulletExplosion.mp3");
         binaryTask.onSuccess = function (task) {
             BulletExplosion = new BABYLON.Sound("BulletExplosion", task.data, scene, null, { loop: false, autoplay: false});
+        }
+
+        binaryTask = assetsManager.addBinaryFileTask("powerups task", "AudioClips/powerups.mp3");
+        binaryTask.onSuccess = function (task) {
+            powerups = new BABYLON.Sound("powerups", task.data, scene, null, { loop: false, autoplay: false});
         }
     }
 
@@ -2886,6 +2896,12 @@ function GameCartoon() {
         binaryTask.onSuccess = function (task) {
             BulletExplosion = new BABYLON.Sound("BulletExplosion", task.data, scene, null, { loop: false, autoplay: false});
         }
+
+        binaryTask = assetsManager.addBinaryFileTask("powerups task", "AudioClips/powerups.mp3");
+        binaryTask.onSuccess = function (task) {
+            powerups = new BABYLON.Sound("powerups", task.data, scene, null, { loop: false, autoplay: false});
+        }
+
     }
 
     function reset() {
