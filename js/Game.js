@@ -105,8 +105,6 @@ function Game() {
     var plant = [];
     var snowTree1 = [];
     var snowTreeLeaf1 = [];
-    var snowTree2 = [];
-    var snowTreeLeaf2 = [];
 
     var isWPressed = false;
     var isAPressed = false;
@@ -541,8 +539,6 @@ function Game() {
         modelsPositions=[];
         for(var i=0;i<10;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
-        snowTree2 = createModel("snowTree2.babylon", "tree material","images/SnowTexture.jpg",modelsPositions, 4, 4, 4, 10);
-        snowTreeLeaf2 = createModel("snowTreeLeaf2.babylon", "tree material","images/SnowTexture.jpg",modelsPositions, 4, 4, 4, 10);
         modelsPositions=[];
 
     }
