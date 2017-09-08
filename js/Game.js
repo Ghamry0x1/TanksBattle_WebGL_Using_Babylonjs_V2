@@ -719,6 +719,7 @@ function Game() {
                             GameOver();
                             var musicPlayer = document.getElementById("musicPlayer");
                             musicPlayer.play();
+                            reset();
                         }
                 });
             };
@@ -1716,6 +1717,7 @@ function Game() {
         damage = 20;
         bulletExploded=false;
         lastAlive=0;
+
         backSound.pause();
         TankExplosion.pause();
         bulletSound.pause();
