@@ -1633,33 +1633,27 @@ function Game() {
         PlayerTime = document.getElementById("PlayerTime");
         PlayerDistance = document.getElementById("PlayerDistance");
         nBullets = document.getElementById("nBullets");
-
-        if(engine.isReady) {
-            if(assetsManager.isReady) {
-                countTime2 = setInterval(function () {
-                    if (turnTimer > 0)
-                        turnTimer--;
-                    if ((isWPressed || isSPressed) && movementLimit > 0)
-                        movementLimit -= 15;
-                    if (movementLimit <= 0 && !EngineIdle.isPlaying) {
-                        EngineIdle.play();
-                        EngineDriving.stop();
-                    }
-                    PlayerTime.innerHTML = "Player " + (currentTank + 1) + " time  left: " + turnTimer + "s";
-                    PlayerDistance.innerHTML = "Player " + (currentTank + 1) + " distance left: " + movementLimit + "m";
-                    if(tankBullets[currentTank]) {
-                        nBullets.innerHTML = tankBullets[currentTank];
-                    }
-                    if(tankBullets[currentTank] === 0)
-                        nBullets.innerHTML = "0";
-                    if (turnTimer <= 0 && !isFPressed) {
-                        switchTanks();
-                        countTime2;
-                    }
-                }, 1000);
+        countTime2 = setInterval(function () {
+            if (turnTimer > 0)
+                turnTimer--;
+            if ((isWPressed || isSPressed) && movementLimit > 0)
+                movementLimit -= 15;
+            if (movementLimit <= 0 && !EngineIdle.isPlaying) {
+                EngineIdle.play();
+                EngineDriving.stop();
             }
-        }
-
+            PlayerTime.innerHTML = "Player " + (currentTank + 1) + " time  left: " + turnTimer + "s";
+            PlayerDistance.innerHTML = "Player " + (currentTank + 1) + " distance left: " + movementLimit + "m";
+            if(tankBullets[currentTank]) {
+                nBullets.innerHTML = tankBullets[currentTank];
+            }
+            if(tankBullets[currentTank] === 0)
+                nBullets.innerHTML = "0";
+            if (turnTimer <= 0 && !isFPressed) {
+                switchTanks();
+                countTime2;
+            }
+        }, 1000);
     }
 
     function loadSounds() {
