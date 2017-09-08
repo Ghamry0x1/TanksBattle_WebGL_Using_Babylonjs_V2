@@ -48,7 +48,6 @@
                 document.getElementById("forestBtn").style.display = "inline";
 
                 $('#cartoonBtn').click(function() {
-                    console.log("cartoonBtnis clicked");
                     document.getElementById("snowBtn").style.display = "none";
                     document.getElementById("forestBtn").style.display = "none";
                     document.getElementById("snowLockedBtn").style.display = "block";
@@ -56,7 +55,6 @@
                 });
 
                 Maps();
-                console.log("gotoMaps called");
             }
             function gotoMode() {
                 document.getElementById("renderCanvas").style.display = "none";
@@ -89,7 +87,6 @@
                 document.getElementById("backBtn").style.zIndex = "3";
 
                 Mode();
-                console.log("gotoMode called");
             }
             function gotoUI() {
                 document.getElementById("renderCanvas").style.display = "none";
@@ -122,7 +119,6 @@
                 document.getElementById("musicPlayer").play();
 
                 UI();
-                console.log("gotoUI called");
             }
             function gotoCredits() {
                 document.getElementById("renderCanvas").style.display = "none";
@@ -152,7 +148,6 @@
                 document.getElementById("backBtn").style.display = "inline";
 
                 Credits();
-                console.log("gotoCredits called");
             }
             function gotoInstructions() {
                 document.getElementById("renderCanvas").style.display = "none";
@@ -182,7 +177,6 @@
                 document.getElementById("backBtn").style.display = "inline";
 
                 Instructions();
-                console.log("gotoInstructions called");
             }
             function gotoSand() {
                 onGame = true;
@@ -229,8 +223,6 @@
                     Game();
                 else
                     GameCartoon();
-
-                console.log("gotoSand called");
             }
             function gotoFog() {
                 onGame = true;
@@ -278,8 +270,6 @@
                     Game();
                 else
                     GameCartoon();
-
-                console.log("gotoFog called");
             }
             function gotoSnow() {
                 onGame = true;
@@ -327,8 +317,6 @@
                     Game();
                 else
                     GameCartoon();
-
-                console.log("gotoSnow called");
             }
             function gotoForest() {
                 onGame = true;
@@ -376,8 +364,6 @@
                     Game();
                 else
                     GameCartoon();
-
-                console.log("gotoForest called");
             }
         </script>
         <script src="js/Game.js"></script>
