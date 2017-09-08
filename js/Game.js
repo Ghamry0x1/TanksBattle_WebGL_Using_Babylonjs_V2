@@ -15,6 +15,8 @@ var powerups;
 
 var nBullets;
 
+var onGame;
+
 function Game() {
 
     /*Variables*/
@@ -119,72 +121,77 @@ function Game() {
 
     /*Listeners*/
     document.addEventListener("keyup", function () {
-        if (event.key == 'a' || event.key == 'A') {
-            isAPressed = false;
-        }
-        if (event.key == 's' || event.key == 'S') {
-            followCamera.radius = 15;
-            if(!EngineIdle.isPlaying) {
-                EngineIdle.play();
-                EngineDriving.stop();
+        if(onGame) {
+            if (event.key == 'a' || event.key == 'A') {
+                isAPressed = false;
             }
-            isSPressed = false;
-        }
-        if (event.key == 'd' || event.key == 'D') {
-            isDPressed = false;
-        }
-        if (event.key == 'w' || event.key == 'W') {
-            if(!EngineIdle.isPlaying) {
-                EngineIdle.play();
-                EngineDriving.stop();
+            if (event.key == 's' || event.key == 'S') {
+                followCamera.radius = 15;
+                if(!EngineIdle.isPlaying) {
+                    EngineIdle.play();
+                    EngineDriving.stop();
+                }
+                isSPressed = false;
             }
-            isWPressed = false;
-        }
-        if (event.key == 'f' || event.key == 'F') {
-            //isFPressed = false;
-        }
-        if (event.key == 'r' || event.key == 'R') {
-            isRPressed = false;
-        }
-        if (event.key == 'q' || event.key == 'Q') {
-            tank[currentTank].dispose();
-            tank[currentTank]= null;
+            if (event.key == 'd' || event.key == 'D') {
+                isDPressed = false;
+            }
+            if (event.key == 'w' || event.key == 'W') {
+                if(!EngineIdle.isPlaying) {
+                    EngineIdle.play();
+                    EngineDriving.stop();
+                }
+                isWPressed = false;
+            }
+            if (event.key == 'f' || event.key == 'F') {
+                //isFPressed = false;
+            }
+            if (event.key == 'r' || event.key == 'R') {
+                isRPressed = false;
+            }
+            if (event.key == 'q' || event.key == 'Q') {
+                tank[currentTank].dispose();
+                tank[currentTank]= null;
+            }
         }
     });
     document.addEventListener("keydown", function () {
-        if (event.key == 'a' || event.key == 'A') {
-            isAPressed = true;
-        }
-        if (event.key == 's' || event.key == 'S') {
-            if(!EngineDriving.isPlaying&&movementLimit!==0) {
-                EngineDriving.play();
-                EngineIdle.stop();
+        if(onGame) {
+            if (event.key == 'a' || event.key == 'A') {
+                isAPressed = true;
             }
-            isSPressed = true;
-        }
-        if (event.key == 'd' || event.key == 'D') {
-            isDPressed = true;
-        }
-        if (event.key == 'w' || event.key == 'W') {
-            if(!EngineDriving.isPlaying&&movementLimit!==0) {
-                EngineDriving.play();
-                EngineIdle.stop();
+            if (event.key == 's' || event.key == 'S') {
+                if(!EngineDriving.isPlaying&&movementLimit!==0) {
+                    EngineDriving.play();
+                    EngineIdle.stop();
+                }
+                isSPressed = true;
             }
-            isWPressed = true;
-        }
-        if (event.key == 'f' || event.key == 'F') {
-            fire();
-            if(tankBullets[currentTank]>0)
-                isFPressed = true;
-        }
-        if (event.key == 'r' || event.key == 'R') {
-            checkRays();
-            isRPressed = true;
+            if (event.key == 'd' || event.key == 'D') {
+                isDPressed = true;
+            }
+            if (event.key == 'w' || event.key == 'W') {
+                if(!EngineDriving.isPlaying&&movementLimit!==0) {
+                    EngineDriving.play();
+                    EngineIdle.stop();
+                }
+                isWPressed = true;
+            }
+            if (event.key == 'f' || event.key == 'F') {
+                fire();
+                if(tankBullets[currentTank]>0)
+                    isFPressed = true;
+            }
+            if (event.key == 'r' || event.key == 'R') {
+                checkRays();
+                isRPressed = true;
+            }
         }
     });
 
 
     /*GameStart*/
+    onGame = true;
     for(var i=1;i<=n;i++){
         tankNames.push("images/tank"+i+".jpg");
     }
@@ -219,17 +226,19 @@ function Game() {
 
 
     function createScene() {
-        if (sceneNum === 0) {
-            createSandScene();
-        }
-        else if (sceneNum === 1) {
-            createFogScene();
-        }
-        else if (sceneNum === 2) {
-            createSnowScene();
-        }
-        else if (sceneNum === 3) {
-            createForestScene();
+        if(onGame) {
+            if (sceneNum === 0) {
+                createSandScene();
+            }
+            else if (sceneNum === 1) {
+                createFogScene();
+            }
+            else if (sceneNum === 2) {
+                createSnowScene();
+            }
+            else if (sceneNum === 3) {
+                createForestScene();
+            }
         }
     }
 
@@ -582,144 +591,160 @@ function Game() {
     }
 
     function waitForIt() {
-        console.log("wait for it");
-        loadAssetsManager();
+        if(onGame) {
+            console.log("wait for it");
+            loadAssetsManager();
 
-        followCamera = createFollowCamera(currentTank);
-        scene.activeCamera = followCamera;
-        scene.collisionsEnabled = true;
+            followCamera = createFollowCamera(currentTank);
+            scene.activeCamera = followCamera;
+            scene.collisionsEnabled = true;
 
-        followCamera.attachControl(canvas);
-        followCamera.applyGravity = true;
-        followCamera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
-        followCamera.checkCollisions = true;
-        generatePowerUp(generatedBullets ,generatedBulletsMaterial,powerupTaken1, 1 ,3);
-        generatePowerUp(generatedDoubleDamage ,generatedDoubleDamageMaterial,powerupTaken2, 2 ,3);
-        generatePowerUp(generatedExtraDistance ,generatedExtraDistanceMaterial,powerupTaken3, 3 ,3);
-        generatePowerUp(generatedHealth ,generatedHealthMaterial,powerupTaken4, 4 ,3);
-        assetsManager.onFinish = function (tasks) {
-            engine.runRenderLoop(function () {
-                if(gameOver == 0) {
-                    scene.render();
-                    if(tank.length===n) {
-                        generatedBullets.forEach(function (powerup) {
-                            tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
-                                trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
-                                parameter: {mesh: powerup}
-                            }, function () {
-                                if(!powerupTaken1[powerup.id]) {
-                                    powerupTaken1[powerup.id] = true;
-                                    powerup.visibility = false;
-                                    tankBullets[currentTank] += 2;
-                                    powerups.play();
-                                    console.log("bullets taken");
-                                    console.log(tankBullets[currentTank]);
+            followCamera.attachControl(canvas);
+            followCamera.applyGravity = true;
+            followCamera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
+            followCamera.checkCollisions = true;
+            generatePowerUp(generatedBullets ,generatedBulletsMaterial,powerupTaken1, 1 ,3);
+            generatePowerUp(generatedDoubleDamage ,generatedDoubleDamageMaterial,powerupTaken2, 2 ,3);
+            generatePowerUp(generatedExtraDistance ,generatedExtraDistanceMaterial,powerupTaken3, 3 ,3);
+            generatePowerUp(generatedHealth ,generatedHealthMaterial,powerupTaken4, 4 ,3);
+            assetsManager.onFinish = function (tasks) {
+                engine.runRenderLoop(function () {
+                    $('#mainmenuBtn').click(function() {
+                        onGame = false;
+                        reset();
+                        engine.stopRenderLoop();
+                    });
+                    $('#rematchBtn').click(function() {
+                        onGame = false;
+                        reset();
+                        engine.stopRenderLoop();
+                    });
 
-                                    document.getElementById("powerupText").innerHTML = "+2 BULLETS";
-                                    $('#powerupText').fadeIn(1000);
-                                    $('#powerupText').fadeOut(800);
+                    if(onGame) {
+                        if(gameOver == 0) {
+                            scene.render();
+                            if(tank.length===n) {
+                                generatedBullets.forEach(function (powerup) {
+                                    tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                                        trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                                        parameter: {mesh: powerup}
+                                    }, function () {
+                                        if(!powerupTaken1[powerup.id]) {
+                                            powerupTaken1[powerup.id] = true;
+                                            powerup.visibility = false;
+                                            tankBullets[currentTank] += 2;
+                                            powerups.play();
+                                            console.log("bullets taken");
+                                            console.log(tankBullets[currentTank]);
 
-                                }
-                            }));
-                        });
-                        generatedHealth.forEach(function (powerup) {
-                            tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
-                                trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
-                                parameter: {mesh: powerup}
-                            }, function () {
-                                if(!powerupTaken2[powerup.id]) {
-                                    powerupTaken2[powerup.id] = true;
-                                    powerup.visibility = false;
-                                    powerups.play();
+                                            document.getElementById("powerupText").innerHTML = "+2 BULLETS";
+                                            $('#powerupText').fadeIn(1000);
+                                            $('#powerupText').fadeOut(800);
 
-                                    document.getElementById("powerupText").innerHTML = "+20 HEALTH";
-                                    $('#powerupText').fadeIn(1000);
-                                    $('#powerupText').fadeOut(800);
+                                        }
+                                    }));
+                                });
+                                generatedHealth.forEach(function (powerup) {
+                                    tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                                        trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                                        parameter: {mesh: powerup}
+                                    }, function () {
+                                        if(!powerupTaken2[powerup.id]) {
+                                            powerupTaken2[powerup.id] = true;
+                                            powerup.visibility = false;
+                                            powerups.play();
 
-                                    if(healthPercentage[currentTank]<100) {
-                                        damage = -20;
-                                        updateHealthBar(currentTank);
-                                    }
-                                    if(healthPercentage[currentTank]>100)
-                                        healthPercentage[currentTank]=100
-                                    console.log("health taken");
-                                }
-                            }));
-                        });
-                        generatedExtraDistance.forEach(function (powerup) {
-                            tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
-                                trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
-                                parameter: {mesh: powerup}
-                            }, function () {
-                                if(!powerupTaken3[powerup.id]) {
-                                    powerupTaken3[powerup.id] = true;
-                                    powerup.visibility = false;
-                                    powerups.play();
+                                            document.getElementById("powerupText").innerHTML = "+20 HEALTH";
+                                            $('#powerupText').fadeIn(1000);
+                                            $('#powerupText').fadeOut(800);
 
-                                    document.getElementById("powerupText").innerHTML = "+75m +5s";
-                                    $('#powerupText').fadeIn(1000);
-                                    $('#powerupText').fadeOut(800);
+                                            if(healthPercentage[currentTank]<100) {
+                                                damage = -20;
+                                                updateHealthBar(currentTank);
+                                            }
+                                            if(healthPercentage[currentTank]>100)
+                                                healthPercentage[currentTank]=100
+                                            console.log("health taken");
+                                        }
+                                    }));
+                                });
+                                generatedExtraDistance.forEach(function (powerup) {
+                                    tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                                        trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                                        parameter: {mesh: powerup}
+                                    }, function () {
+                                        if(!powerupTaken3[powerup.id]) {
+                                            powerupTaken3[powerup.id] = true;
+                                            powerup.visibility = false;
+                                            powerups.play();
 
-                                    movementLimit += 75;
-                                    turnTimer += 5;
-                                    console.log("extra distance taken");
-                                }
-                            }));
-                        });
-                        generatedDoubleDamage.forEach(function (powerup) {
-                            tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
-                                trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
-                                parameter: {mesh: powerup}
-                            }, function () {
-                                if(!powerupTaken4[powerup.id]) {
-                                    powerupTaken4[powerup.id] = true;
-                                    powerup.visibility = false;
-                                    powerups.play();
+                                            document.getElementById("powerupText").innerHTML = "+75m +5s";
+                                            $('#powerupText').fadeIn(1000);
+                                            $('#powerupText').fadeOut(800);
 
-                                    document.getElementById("powerupText").innerHTML = "DOUBLE DAMAGE";
-                                    $('#powerupText').fadeIn(1000);
-                                    $('#powerupText').fadeOut(800);
+                                            movementLimit += 75;
+                                            turnTimer += 5;
+                                            console.log("extra distance taken");
+                                        }
+                                    }));
+                                });
+                                generatedDoubleDamage.forEach(function (powerup) {
+                                    tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                                        trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                                        parameter: {mesh: powerup}
+                                    }, function () {
+                                        if(!powerupTaken4[powerup.id]) {
+                                            powerupTaken4[powerup.id] = true;
+                                            powerup.visibility = false;
+                                            powerups.play();
 
-                                    damage=40;
-                                    console.log("double damage taken");
-                                }
-                            }));
-                        });
+                                            document.getElementById("powerupText").innerHTML = "DOUBLE DAMAGE";
+                                            $('#powerupText').fadeIn(1000);
+                                            $('#powerupText').fadeOut(800);
+
+                                            damage=40;
+                                            console.log("double damage taken");
+                                        }
+                                    }));
+                                });
+                            }
+                            if(bullet) {
+                                bullet.position.z += (Math.sin(bullet.rotation.y) * bullet.speed);
+                                bullet.position.x -= Math.cos(bullet.rotation.y) * bullet.speed;
+                            }
+                            if(direction&&bullet){
+                                direction.x -= Math.cos(bullet.rotation.y) * bullet.speed;
+                                direction.z += Math.sin(bullet.rotation.y) * bullet.speed;
+                            }
+                            if (!followCamera.lockedTarget&&cameraLocked) {
+                                cameraLocked=false;
+                                followCamera.lockedTarget = tank[currentTank];
+                            }
+                            for(var i=0;i<generatedBullets.length;i++)
+                                generatedBullets[i].rotation.y += 0.05;
+                            for(var j=0;j<generatedDoubleDamage.length;j++)
+                                generatedDoubleDamage[j].rotation.y += 0.05;
+                            for(var k=0;k<generatedExtraDistance.length;k++)
+                                generatedExtraDistance[k].rotation.y += 0.05;
+                            for(var l=0;l<generatedHealth.length;l++)
+                                generatedHealth[l].rotation.y += 0.05;
+                            if (movementLimit <= 0)
+                                dontMove=true;
+
+                            applyTankMovements();
+                            checkGameOver();
+                        }
+                        else {
+                            engine.stopRenderLoop();
+                            GameOver();
+                            var musicPlayer = document.getElementById("musicPlayer");
+                            musicPlayer.play();
+                            reset();
+                        }
                     }
-                    if(bullet) {
-                        bullet.position.z += (Math.sin(bullet.rotation.y) * bullet.speed);
-                        bullet.position.x -= Math.cos(bullet.rotation.y) * bullet.speed;
-                    }
-                    if(direction&&bullet){
-                        direction.x -= Math.cos(bullet.rotation.y) * bullet.speed;
-                        direction.z += Math.sin(bullet.rotation.y) * bullet.speed;
-                    }
-                    if (!followCamera.lockedTarget&&cameraLocked) {
-                        cameraLocked=false;
-                        followCamera.lockedTarget = tank[currentTank];
-                    }
-                    for(var i=0;i<generatedBullets.length;i++)
-                        generatedBullets[i].rotation.y += 0.05;
-                    for(var j=0;j<generatedDoubleDamage.length;j++)
-                        generatedDoubleDamage[j].rotation.y += 0.05;
-                    for(var k=0;k<generatedExtraDistance.length;k++)
-                        generatedExtraDistance[k].rotation.y += 0.05;
-                    for(var l=0;l<generatedHealth.length;l++)
-                        generatedHealth[l].rotation.y += 0.05;
-                    if (movementLimit <= 0)
-                        dontMove=true;
-
-                    applyTankMovements();
-                    checkGameOver();
-                }
-                else {
-                    GameOver();
-                    var musicPlayer = document.getElementById("musicPlayer");
-                    musicPlayer.play();
-                    reset();
-                }
-            });
-        };
+                });
+            };
+        }
     }
 
 
@@ -827,98 +852,102 @@ function Game() {
     }
 
     function applyTankMovements() {
-        if (isWPressed && !dontMove) {
-            tank[currentTank].moveWithCollisions(tank[currentTank].frontVector);
-        }
-        if (isSPressed&&!dontMove) {
-            var reverseVector = tank[currentTank].frontVector.multiplyByFloats(-1, 1, -1);
-            tank[currentTank].moveWithCollisions(reverseVector);
-            followCamera.radius=30;
+        if(onGame) {
+            if (isWPressed && !dontMove) {
+                tank[currentTank].moveWithCollisions(tank[currentTank].frontVector);
+            }
+            if (isSPressed&&!dontMove) {
+                var reverseVector = tank[currentTank].frontVector.multiplyByFloats(-1, 1, -1);
+                tank[currentTank].moveWithCollisions(reverseVector);
+                followCamera.radius=30;
 
+            }
+            if (isDPressed) {
+                tank[currentTank].rotation.y += .1 * tank[currentTank].rotationSensitivity;
+                tank[currentTank].bounder.rotation.y += .1 * tank[currentTank].rotationSensitivity;
+            }
+            if (isAPressed) {
+                tank[currentTank].rotation.y -= .1 * tank[currentTank].rotationSensitivity;
+                tank[currentTank].bounder.rotation.y -= .1 * tank[currentTank].rotationSensitivity;
+            }
+            tank[currentTank].frontVector.x = Math.sin(tank[currentTank].rotation.y) * -0.5;
+            tank[currentTank].frontVector.z = Math.cos(tank[currentTank].rotation.y) * -0.5;
+            tank[currentTank].frontVector.y = -4; // adding a bit of gravity
         }
-        if (isDPressed) {
-            tank[currentTank].rotation.y += .1 * tank[currentTank].rotationSensitivity;
-            tank[currentTank].bounder.rotation.y += .1 * tank[currentTank].rotationSensitivity;
-        }
-        if (isAPressed) {
-            tank[currentTank].rotation.y -= .1 * tank[currentTank].rotationSensitivity;
-            tank[currentTank].bounder.rotation.y -= .1 * tank[currentTank].rotationSensitivity;
-        }
-        tank[currentTank].frontVector.x = Math.sin(tank[currentTank].rotation.y) * -0.5;
-        tank[currentTank].frontVector.z = Math.cos(tank[currentTank].rotation.y) * -0.5;
-        tank[currentTank].frontVector.y = -4; // adding a bit of gravity
     }
 
     function switchTanks() {
-        if (currentTank === tank.length - 1) {
-            currentTank = 0;
-            if(alive[currentTank]) {
-                updatePowerUpPosition();
-                for(var i=0;i<3;i++) {
-                    powerupTaken1[i] = false;
-                    generatedBullets[i].visibility=true;
+        if(onGame) {
+            if (currentTank === tank.length - 1) {
+                currentTank = 0;
+                if(alive[currentTank]) {
+                    updatePowerUpPosition();
+                    for(var i=0;i<3;i++) {
+                        powerupTaken1[i] = false;
+                        generatedBullets[i].visibility=true;
+                    }
+                    for(var j=0;j<3;j++) {
+                        powerupTaken2[j] = false;
+                        generatedHealth[j].visibility=true;
+                    }
+                    for(var k=0;k<3;k++) {
+                        powerupTaken3[k] = false;
+                        generatedExtraDistance[k].visibility=true;
+                    }
+                    for(var l=0;l<3;l++) {
+                        powerupTaken4[l] = false;
+                        generatedDoubleDamage[l].visibility=true;
+                    }
+                    damage=20;
+                    hasShot=false;
+                    followCamera.lockedTarget = tank[currentTank];
+                    movementLimit = 150;
+                    turnTimer = 15;
+                    dontMove = false;
+                    for(var i=0;i<tank.length;i++)
+                        tank[i].bounder.isPickable = true;
+                    tank[currentTank].bounder.isPickable = false;
+                    tankParticlesRight.emitter = tank[currentTank];
+                    tankParticlesLeft.emitter = tank[currentTank];
+                    isFPressed=false;
                 }
-                for(var j=0;j<3;j++) {
-                    powerupTaken2[j] = false;
-                    generatedHealth[j].visibility=true;
-                }
-                for(var k=0;k<3;k++) {
-                    powerupTaken3[k] = false;
-                    generatedExtraDistance[k].visibility=true;
-                }
-                for(var l=0;l<3;l++) {
-                    powerupTaken4[l] = false;
-                    generatedDoubleDamage[l].visibility=true;
-                }
-                damage=20;
-                hasShot=false;
-                followCamera.lockedTarget = tank[currentTank];
-                movementLimit = 150;
-                turnTimer = 15;
-                dontMove = false;
-                for(var i=0;i<tank.length;i++)
-                    tank[i].bounder.isPickable = true;
-                tank[currentTank].bounder.isPickable = false;
-                tankParticlesRight.emitter = tank[currentTank];
-                tankParticlesLeft.emitter = tank[currentTank];
-                isFPressed=false;
+                else switchTanks();
             }
-            else switchTanks();
-        }
-        else {
-            currentTank++;
-            if(alive[currentTank]) {
-                updatePowerUpPosition();
-                for(var i=0;i<3;i++) {
-                    powerupTaken1[i] = false;
-                    generatedBullets[i].visibility=true;
+            else {
+                currentTank++;
+                if(alive[currentTank]) {
+                    updatePowerUpPosition();
+                    for(var i=0;i<3;i++) {
+                        powerupTaken1[i] = false;
+                        generatedBullets[i].visibility=true;
+                    }
+                    for(var j=0;j<3;j++) {
+                        powerupTaken2[j] = false;
+                        generatedHealth[j].visibility=true;
+                    }
+                    for(var k=0;k<3;k++) {
+                        powerupTaken3[k] = false;
+                        generatedExtraDistance[k].visibility=true;
+                    }
+                    for(var l=0;l<3;l++) {
+                        powerupTaken4[l] = false;
+                        generatedDoubleDamage[l].visibility=true;
+                    }
+                    damage=20;
+                    hasShot=false;
+                    followCamera.lockedTarget = tank[currentTank];
+                    movementLimit = 150;
+                    turnTimer = 15;
+                    dontMove = false;
+                    for(var i=0;i<tank.length;i++)
+                        tank[i].bounder.isPickable = true;
+                    tank[currentTank].bounder.isPickable = false;
+                    tankParticlesRight.emitter = tank[currentTank];
+                    tankParticlesLeft.emitter = tank[currentTank];
+                    isFPressed=false;
                 }
-                for(var j=0;j<3;j++) {
-                    powerupTaken2[j] = false;
-                    generatedHealth[j].visibility=true;
-                }
-                for(var k=0;k<3;k++) {
-                    powerupTaken3[k] = false;
-                    generatedExtraDistance[k].visibility=true;
-                }
-                for(var l=0;l<3;l++) {
-                    powerupTaken4[l] = false;
-                    generatedDoubleDamage[l].visibility=true;
-                }
-                damage=20;
-                hasShot=false;
-                followCamera.lockedTarget = tank[currentTank];
-                movementLimit = 150;
-                turnTimer = 15;
-                dontMove = false;
-                for(var i=0;i<tank.length;i++)
-                    tank[i].bounder.isPickable = true;
-                tank[currentTank].bounder.isPickable = false;
-                tankParticlesRight.emitter = tank[currentTank];
-                tankParticlesLeft.emitter = tank[currentTank];
-                isFPressed=false;
+                else switchTanks();
             }
-            else switchTanks();
         }
     }
 
@@ -1581,8 +1610,11 @@ function Game() {
             }
             PlayerTime.innerHTML = "Player " + (currentTank + 1) + " time  left: " + turnTimer + "s";
             PlayerDistance.innerHTML = "Player " + (currentTank + 1) + " distance left: " + movementLimit + "m";
-            if(tankBullets[currentTank])
+            if(tankBullets[currentTank]) {
                 nBullets.innerHTML = tankBullets[currentTank];
+            }
+            if(tankBullets[currentTank] === 0)
+                nBullets.innerHTML = "0";
             if (turnTimer <= 0 && !isFPressed) {
                 switchTanks();
                 countTime2;
@@ -1628,7 +1660,7 @@ function Game() {
     }
 
     function reset() {
-        tankNames = [];
+        /*tankNames = [];
         modelsPositions = [];
         for(var i = 0;i<tank.length;i++)
             tank[i].dispose();
@@ -1725,7 +1757,108 @@ function Game() {
         assetsManager.dispose();
         canvas.dispose();
         engine.dispose();
-        scene.dispose();
+        scene.dispose();*/
+
+        var delArr = [alive, modelsPositions, tankNames, tank, tanksPositions,
+        bustedTank, textPlaneTexture, frontHealthBar, backHealthBar, dynamicTexture,
+        healthBarMaterial, healthBarContainerMaterial, healthBarContainer,
+        healthPercentage, generatedBullets, generatedDoubleDamage, generatedExtraDistance,
+        generatedHealth, tankBullets, generatedBulletsMaterial, generatedDoubleDamageMaterial,
+        generatedExtraDistanceMaterial, generatedHealthMaterial, powerupTaken1,
+        powerupTaken2, powerupTaken3, powerupTaken4, models, cactus, radar ,cow,
+        helipad, oilStorage, palmTree3, palmTree2, palmTree1, palmTree, tree,
+        treeLeaf, tree2, treeLeaf2, grass, rocks2, rocks1, barrel, deadTree1,
+        deadTree2, deadTree3, deadTree4, deadTree5, snowMan, plant, snowTree1,
+        snowTreeLeaf1];
+
+        healthBarReady = false;
+        turnTimer = 15;
+        movementLimit = 150;
+        dontMove = false;
+        delayRayShot=false;
+        hasShot = false;
+        currentTank = 0;
+        damage = 20;
+        bulletExploded=false;
+        lastAlive=0;
+        backSound.pause();
+        TankExplosion.pause();
+        bulletSound.pause();
+        BulletExplosion.pause();
+        EngineIdle.pause();
+        EngineDriving.pause();
+        powerups.pause();
+
+        console.log("modelsPos array size before: " + modelsPositions.length);
+
+        for(var p in delArr) {
+            if(delArr[p]) {
+                delArr[p].length = 0;
+            }
+        }
+
+        console.log("modelsPos array size after: " + modelsPositions.length);
+        /*powerupTaken1 = [];
+        powerupTaken2 = [];
+        powerupTaken3 = [];
+        powerupTaken4 = [];
+        models = [];
+        cactus = [];
+        radar = [];
+        cow = [];
+        helipad = [];
+        oilStorage = [];
+        palmTree = [];
+        palmTree1 = [];
+        palmTree2 = [];
+        palmTree3 = [];
+        tree = [];
+        treeLeaf = [];
+        tree2 = [];
+        treeLeaf2 = [];
+        grass = [];
+        rocks1 = [];
+        rocks2 = [];
+        barrel = [];
+        deadTree1 = [];
+        deadTree2 = [];
+        deadTree3 = [];
+        deadTree4 = [];
+        deadTree5 = [];
+        snowMan = [];
+        plant = [];
+        snowTree1 = [];
+        snowTreeLeaf1 = [];
+
+
+
+
+        alive = [];
+        modelsPositions = [];
+        tankNames = [];
+        tank = [];
+        tanksPositions = [];
+        bustedTank = [];
+        textPlaneTexture = [];
+        frontHealthBar = [];
+        backHealthBar = [];
+
+        dynamicTexture = [];
+        healthBarMaterial = [];
+        healthBarContainerMaterial = [];
+        healthBarContainer = [];
+        healthPercentage = [];
+        generatedBullets = [];
+        generatedDoubleDamage = [];
+        generatedExtraDistance = [];
+
+        generatedHealth = [];
+        tankBullets = [];
+        generatedBulletsMaterial = [];
+        generatedDoubleDamageMaterial = [];
+        generatedExtraDistanceMaterial = [];
+        generatedHealthMaterial = [];*/
+
     }
 
     function checkGameOver(){
@@ -1736,8 +1869,10 @@ function Game() {
                 lastAlive = i;
             }
         }
-        if(aliveCounter == 1)
+        if(aliveCounter == 1) {
             gameOver = 1;
+            onGame = false;
+        }
     }
 
 }
