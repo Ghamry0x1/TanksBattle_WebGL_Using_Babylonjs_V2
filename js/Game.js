@@ -99,6 +99,10 @@ function Game() {
     var deadTree3 = [];
     var deadTree4 = [];
     var deadTree5 = [];
+    var snowMan = [];
+    var plant = [];
+    var snowTree1 = [];
+    var snowTreeLeaf1 = [];
 
     var isWPressed = false;
     var isAPressed = false;
@@ -352,7 +356,8 @@ function Game() {
         modelsPositions=[];
         for(var i=0;i<10;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
-        cactus = createModel("cactus.babylon", "grass material", "images/Grass1.png",modelsPositions, 0.5, 0.8, 0.5, 20);
+        plant = createModel("plant.babylon", "grass material", "images/Arch42_055_leaf.jpg",modelsPositions, 2, 2, 2, 20);
+
     }
 
     function createFogScene() {
@@ -480,9 +485,6 @@ function Game() {
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
         rocks2 = createModel("rocks2.babylon", null,null,modelsPositions, 1.5, 1, 1.5, 10);
         modelsPositions=[];
-        for(var i=0;i<10;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
-        cactus = createModel("cactus.babylon", "grass material", "images/Grass1.png",modelsPositions, 0.5, 0.8, 0.5, 10);
     }
 
     function createSnowScene() {
@@ -494,26 +496,24 @@ function Game() {
         engine.enableOfflineSupport = false;
         scene.fogMode = BABYLON.Scene.FOGMODE_EXP;
         scene.fogDensity = 0.005;
-        scene.fogColor = new BABYLON.Color3(1,.85,.85);
+        scene.fogColor = new BABYLON.Color3(.9,.85,.85);
         scene.enablePhysics(new BABYLON.Vector3(0, -10, 0), new BABYLON.CannonJSPlugin());
         createAssetsManager();
         loadSounds();
-
-        ground = createGround("images/myHeightMap.png", "images/snow.jpg");
         light = createLight(2);
         var skybox = createSkybox("images/skybox/IceRiver/IceRiver", false);
         for(var i=0;i<n;i++) {
             createTank(tankNames[i], i);
         }
-
+        designSnowMap();
         waitForIt();
     }
     function designSnowMap(){
         var terrainMaterial = new BABYLON.TerrainMaterial("terrainMaterial", scene);
         terrainMaterial.mixTexture = new BABYLON.Texture("images/mixMap.png", scene);
-        terrainMaterial.diffuseTexture1 = new BABYLON.Texture("images/mountain.png", scene);
-        terrainMaterial.diffuseTexture2 = new BABYLON.Texture("images/grass3.png", scene);
-        terrainMaterial.diffuseTexture3 = new BABYLON.Texture("images/sand1.png", scene);
+        terrainMaterial.diffuseTexture1 = new BABYLON.Texture("images/snowMountain.jpg", scene);
+        terrainMaterial.diffuseTexture2 = new BABYLON.Texture("images/SnowTexture2.jpg", scene);
+        terrainMaterial.diffuseTexture3 = new BABYLON.Texture("images/SnowTexture.jpg", scene);
         terrainMaterial.diffuseTexture1.uScale = terrainMaterial.diffuseTexture1.vScale = 10;
         terrainMaterial.diffuseTexture2.uScale = terrainMaterial.diffuseTexture2.vScale = 10;
         terrainMaterial.diffuseTexture3.uScale = terrainMaterial.diffuseTexture3.vScale = 10;
@@ -523,99 +523,15 @@ function Game() {
             ground.checkCollisions = true;
         }
         for(var i=0;i<10;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-        for(var i=10;i<12;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-        for(var i=12;i<14;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-        for(var i=14;i<16;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-        for(var i=16;i<18;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-        //(Math.random() * (60 -70) + 70);
-        deadTree1 = createModel("deadTree1.babylon",  null,null,modelsPositions, 5, 5, 5, 18);
-        modelsPositions= [];
-        for(var i=0;i<10;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-        for(var i=10;i<12;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-        for(var i=12;i<14;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-        for(var i=14;i<16;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-        for(var i=16;i<18;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-        //(Math.random() * (60 -70) + 70);
-        deadTree2 = createModel("deadTree2.babylon",  null,null,modelsPositions, 5, 5, 5, 18);
-        modelsPositions= [];
-        for(var i=0;i<10;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-        for(var i=10;i<12;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-        for(var i=12;i<14;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-        for(var i=14;i<16;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-        for(var i=16;i<18;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-        //(Math.random() * (60 -70) + 70);
-        deadTree3 = createModel("deadTree3.babylon",  null,null,modelsPositions, 5, 5, 5, 18);
-        modelsPositions= [];
-        for(var i=0;i<10;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-        for(var i=10;i<12;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-        for(var i=12;i<14;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-        for(var i=14;i<16;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-        for(var i=16;i<18;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-        //(Math.random() * (60 -70) + 70);
-        deadTree4 = createModel("deadTree4.babylon",  null,null,modelsPositions, 5, 5, 5, 18);
-        modelsPositions= [];
-        for(var i=0;i<10;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-        for(var i=10;i<12;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-        for(var i=12;i<14;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-        for(var i=14;i<16;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-        for(var i=16;i<18;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-        //(Math.random() * (60 -70) + 70);
-        deadTree5 = createModel("deadTree5.babylon", null,null,modelsPositions, 5, 5, 5, 18);
-        modelsPositions= [];
-
-        for(var i=0;i<500;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-        for(var i=500;i<700;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-        for(var i=700;i<900;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-        for(var i=900;i<1100;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-        for(var i=1100;i<1300;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-        var grass = createModel("grass.babylon", "grass material", "images/Grass2.png",modelsPositions, 1.5, 1, 1.5, 1300);
-        modelsPositions=[];
-        for(var i=0;i<50;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
-        cow = createModel("cow.babylon", null,null,modelsPositions, 1.5, 1, 1.5, 50);
+        snowMan = createModel("snowman.babylon", null,null,modelsPositions, 2, 2, 2, 10);
+        modelsPositions=[];
+        for(var i=0;i<10;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
+        snowTree1 = createModel("snowTree1.babylon", "tree material","images/AM100_007_color_bark.jpg",modelsPositions, 2, 2, 2, 10);
+        snowTreeLeaf1 = createModel("snowTreeLeaf1.babylon", "tree material","images/SnowTexture.jpg",modelsPositions, 2, 2, 2, 10);
         modelsPositions=[];
 
-        for(var i=0;i<10;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
-        rocks1 = createModel("rocks1.babylon", null,null,modelsPositions, 1.5, 1, 1.5, 10);
-        modelsPositions=[];
-        for(var i=0;i<10;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
-        rocks2 = createModel("rocks2.babylon", null,null,modelsPositions, 1.5, 1, 1.5, 10);
-        modelsPositions=[];
-        for(var i=0;i<10;i++)
-            modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
-        cactus = createModel("cactus.babylon", "grass material", "images/Grass1.png",modelsPositions, 0.5, 0.8, 0.5, 10);
     }
 
     function createForestScene() {
@@ -818,6 +734,7 @@ function Game() {
         }
         return hemisphericlight;
     }
+
     function createSkybox(url, infDist) {
         var skybox = BABYLON.Mesh.CreateBox("skyBox", 500, scene);
         var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
@@ -833,7 +750,6 @@ function Game() {
         }
         return skybox;
     }
-
 
     function createFollowCamera(tankID) {
         var camera = new BABYLON.FollowCamera("follow", new BABYLON.Vector3(0, 2, -20), scene);
@@ -937,6 +853,7 @@ function Game() {
         if (currentTank === tank.length - 1) {
             currentTank = 0;
             if(alive[currentTank]) {
+                updatePowerUpPosition();
                 for(var i=0;i<3;i++) {
                     powerupTaken1[i] = false;
                     generatedBullets[i].visibility=true;
@@ -971,6 +888,7 @@ function Game() {
         else {
             currentTank++;
             if(alive[currentTank]) {
+                updatePowerUpPosition();
                 for(var i=0;i<3;i++) {
                     powerupTaken1[i] = false;
                     generatedBullets[i].visibility=true;
@@ -1160,6 +1078,8 @@ function Game() {
                 else if (frontHealthBar[tankID].scaling.x < .5) {
                     healthBarMaterial[tankID].diffuseColor = BABYLON.Color3.Yellow();
                 }
+                else if(frontHealthBar[tankID].scaling.x >= .5)
+                    healthBarMaterial[tankID].diffuseColor = BABYLON.Color3.Green();
             }
         }
         else{setTimeout(function () {
@@ -1309,6 +1229,21 @@ function Game() {
             powerup[i].visibility = true;
             powerup[i].isPickable=true;
             powerup[i].id = i;
+        }
+    }
+
+    function updatePowerUpPosition(){
+        for(var i=0;i<generatedBullets.length;i++){
+            generatedBullets[i].position = new BABYLON.Vector3((Math.random() * (200 + 200) - 200),1,(Math.random() * (200 + 200) - 200));
+        }
+        for(var i=0;i<generatedExtraDistance.length;i++){
+            generatedExtraDistance[i].position = new BABYLON.Vector3((Math.random() * (200 + 200) - 200),1,(Math.random() * (200 + 200) - 200));
+        }
+        for(var i=0;i<generatedDoubleDamage.length;i++){
+            generatedDoubleDamage[i].position = new BABYLON.Vector3((Math.random() * (200 + 200) - 200),1,(Math.random() * (200 + 200) - 200));
+        }
+        for(var i=0;i<generatedHealth.length;i++){
+            generatedHealth[i].position = new BABYLON.Vector3((Math.random() * (200 + 200) - 200),1,(Math.random() * (200 + 200) - 200));
         }
     }
 
@@ -1578,7 +1513,6 @@ function Game() {
                 model[0].checkCollisions = false;
                 model[0].isPickable = false;
             }
-
             model = clone(model[0], num);
             console.log(model.length);
             for (var i = 0; i < model.length; i++) {
@@ -1590,10 +1524,26 @@ function Game() {
             for (var i = 0; i < positions.length; i++) {
                 model[i].position=positions[i].clone();
             }
-            if(modelName!=="grass.babylon"&&modelName !== "cow.babylon"&&modelName!=="grass.babylon"&&modelName!=="palmTree3.babylon"&&modelName!=="treeLeaf1.babylon"&&modelName!=="treeLeaf2.babylon")
-                for(var i = 0;i<model.length;i++){
-                    models.push(model[i]);
+            var bulletDetector = [];
+
+            if(modelName!=="grass.babylon"&&modelName !== "cow.babylon"&&modelName!=="grass.babylon"&&modelName!=="palmTree3.babylon"&&modelName!=="treeLeaf1.babylon"&&modelName!=="treeLeaf2.babylon") {
+                if(modelName!=="rocks1.babylon"&&modelName!=="rocks2.babylon")
+                for (var i = 0; i < positions.length; i++) {
+                    bulletDetector[i] = BABYLON.Mesh.CreateBox("bullet box", 1, scene);
+                    bulletDetector[i].material = new BABYLON.StandardMaterial("alpha", scene);
+                    bulletDetector[i].material.alpha = 0;
+                    bulletDetector[i].isVisible = true;
+                    bulletDetector[i].position = positions[i].clone();
+                    bulletDetector[i].position.y+=2;
+                    bulletDetector[i].scaling.y*=4;
+                    models.push(bulletDetector[i]);
                 }
+                else{
+                    for (var i = 0; i < model.length; i++) {
+                        models.push(model[i]);
+                    }
+                }
+            }
             return model;
         }
     }
@@ -1829,6 +1779,20 @@ function GameCartoon() {
     var bullet;
     var isMoving=false;
     var currentTank = 0;
+    var generatedBullets = [];
+    var generatedDoubleDamage = [];
+    var generatedExtraDistance = [];
+    var generatedHealth = [];
+    var tankBullets = [];
+    var generatedBulletsMaterial = [];
+    var generatedDoubleDamageMaterial = [];
+    var generatedExtraDistanceMaterial = [];
+    var generatedHealthMaterial = [];
+    var powerupTaken1 = [];
+    var powerupTaken2 = [];
+    var powerupTaken3 = [];
+    var powerupTaken4 = [];
+    var damage = 20;
 
     var bulletSmoke;
     var bulletFire;
@@ -2109,11 +2073,99 @@ function GameCartoon() {
         followCamera.applyGravity = true;
         followCamera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
         followCamera.checkCollisions = true;
-
+        generatePowerUp(generatedBullets ,generatedBulletsMaterial,powerupTaken1, 1 ,3);
+        generatePowerUp(generatedDoubleDamage ,generatedDoubleDamageMaterial,powerupTaken2, 2 ,3);
+        generatePowerUp(generatedExtraDistance ,generatedExtraDistanceMaterial,powerupTaken3, 3 ,3);
+        generatePowerUp(generatedHealth ,generatedHealthMaterial,powerupTaken4, 4 ,3);
         assetsManager.onFinish = function (tasks) {
             engine.runRenderLoop(function () {
                 if(gameOver == 0) {
                     scene.render();
+                    if(tank.length===n&&generatedBullets.length===3&&generatedHealth.length===3&&generatedDoubleDamage.length===3&&generatedExtraDistance.length===3) {
+                        generatedBullets.forEach(function (powerup) {
+                            tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                                trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                                parameter: {mesh: powerup}
+                            }, function () {
+                                if(!powerupTaken1[powerup.id]) {
+                                    powerupTaken1[powerup.id] = true;
+                                    powerup.visibility = false;
+                                    tankBullets[currentTank] += 2;
+                                    powerups.play();
+                                    console.log("bullets taken");
+                                    console.log(tankBullets[currentTank]);
+
+                                    document.getElementById("powerupText").innerHTML = "+2 BULLETS";
+                                    $('#powerupText').fadeIn(1000);
+                                    $('#powerupText').fadeOut(800);
+
+                                }
+                            }));
+                        });
+                        generatedHealth.forEach(function (powerup) {
+                            tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                                trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                                parameter: {mesh: powerup}
+                            }, function () {
+                                if(!powerupTaken2[powerup.id]) {
+                                    powerupTaken2[powerup.id] = true;
+                                    powerup.visibility = false;
+                                    powerups.play();
+
+                                    document.getElementById("powerupText").innerHTML = "+20 HEALTH";
+                                    $('#powerupText').fadeIn(1000);
+                                    $('#powerupText').fadeOut(800);
+
+                                    if(healthPercentage[currentTank]<100) {
+                                        damage = -20;
+                                        updateHealthBar(currentTank);
+                                    }
+                                    if(healthPercentage[currentTank]>100)
+                                        healthPercentage[currentTank]=100
+                                    console.log("health taken");
+                                }
+                            }));
+                        });
+                        generatedExtraDistance.forEach(function (powerup) {
+                            tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                                trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                                parameter: {mesh: powerup}
+                            }, function () {
+                                if(!powerupTaken3[powerup.id]) {
+                                    powerupTaken3[powerup.id] = true;
+                                    powerup.visibility = false;
+                                    powerups.play();
+
+                                    document.getElementById("powerupText").innerHTML = "+75m +5s";
+                                    $('#powerupText').fadeIn(1000);
+                                    $('#powerupText').fadeOut(800);
+
+                                    movementLimit += 75;
+                                    turnTimer += 5;
+                                    console.log("extra distance taken");
+                                }
+                            }));
+                        });
+                        generatedDoubleDamage.forEach(function (powerup) {
+                            tank[currentTank].bounder.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                                trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                                parameter: {mesh: powerup}
+                            }, function () {
+                                if(!powerupTaken4[powerup.id]) {
+                                    powerupTaken4[powerup.id] = true;
+                                    powerup.visibility = false;
+                                    powerups.play();
+
+                                    document.getElementById("powerupText").innerHTML = "DOUBLE DAMAGE";
+                                    $('#powerupText').fadeIn(1000);
+                                    $('#powerupText').fadeOut(800);
+
+                                    damage=40;
+                                    console.log("double damage taken");
+                                }
+                            }));
+                        });
+                    }
                     if(bullet) {
                         bullet.position.z += (Math.sin(bullet.rotation.y) * bullet.speed);
                         bullet.position.x -= Math.cos(bullet.rotation.y) * bullet.speed;
@@ -2126,7 +2178,14 @@ function GameCartoon() {
                         cameraLocked=false;
                         followCamera.lockedTarget = tank[currentTank];
                     }
-
+                    for(var i=0;i<generatedBullets.length;i++)
+                        generatedBullets[i].rotation.y += 0.05;
+                    for(var j=0;j<generatedDoubleDamage.length;j++)
+                        generatedDoubleDamage[j].rotation.y += 0.05;
+                    for(var k=0;k<generatedExtraDistance.length;k++)
+                        generatedExtraDistance[k].rotation.y += 0.05;
+                    for(var l=0;l<generatedHealth.length;l++)
+                        generatedHealth[l].rotation.y += 0.05;
                     if (movementLimit <= 0)
                         dontMove=true;
 
@@ -2214,11 +2273,11 @@ function GameCartoon() {
             _tank.frontVector = new BABYLON.Vector3(0, 0, -1);
             _tank.rotationSensitivity = .1;
             //shadowGenerator.getShadowMap().renderList.push(_tank);
-
+            tankBullets.push(5);
             for(var j=0;j<_tank._children.length;j++){
                 _tank._children[j].name+="_"+i;
             }
-            tank.push(_tank);
+            //tank.push(_tank);
 
             var boundingBox = calculateAndMakeBoundingBoxOfCompositeMeshes(newMeshes, scene,i);
             _tank.bounder = boundingBox.boxMesh;
@@ -2232,7 +2291,9 @@ function GameCartoon() {
                     console.log("koko");
                 }
             }
+            _tank.bounder.actionManager = new BABYLON.ActionManager(scene);
             isTankReady = true;
+            tank.push(_tank);
         }
     }
 
@@ -2277,6 +2338,24 @@ function GameCartoon() {
             if (currentTank === tank.length - 1) {
                 currentTank = 0;
                 if (alive[currentTank]) {
+                    updatePowerUpPosition();
+                    for(var i=0;i<3;i++) {
+                        powerupTaken1[i] = false;
+                        generatedBullets[i].visibility=true;
+                    }
+                    for(var j=0;j<3;j++) {
+                        powerupTaken2[j] = false;
+                        generatedHealth[j].visibility=true;
+                    }
+                    for(var k=0;k<3;k++) {
+                        powerupTaken3[k] = false;
+                        generatedExtraDistance[k].visibility=true;
+                    }
+                    for(var l=0;l<3;l++) {
+                        powerupTaken4[l] = false;
+                        generatedDoubleDamage[l].visibility=true;
+                    }
+                    damage=20;
                     hasShot = false;
                     followCamera.lockedTarget = tank[currentTank];
                     movementLimit = 150;
@@ -2287,13 +2366,32 @@ function GameCartoon() {
                     tank[currentTank].bounder.isPickable = false;
                     tankParticlesRight.emitter = tank[currentTank];
                     tankParticlesLeft.emitter = tank[currentTank];
+                    isFPressed=false;
+
                 }
                 else switchTanks();
             }
             else {
                 currentTank++;
                 if (alive[currentTank]) {
-
+                    updatePowerUpPosition();
+                    for(var i=0;i<3;i++) {
+                        powerupTaken1[i] = false;
+                        generatedBullets[i].visibility=true;
+                    }
+                    for(var j=0;j<3;j++) {
+                        powerupTaken2[j] = false;
+                        generatedHealth[j].visibility=true;
+                    }
+                    for(var k=0;k<3;k++) {
+                        powerupTaken3[k] = false;
+                        generatedExtraDistance[k].visibility=true;
+                    }
+                    for(var l=0;l<3;l++) {
+                        powerupTaken4[l] = false;
+                        generatedDoubleDamage[l].visibility=true;
+                    }
+                    damage=20;
                     hasShot = false;
                     followCamera.lockedTarget = tank[currentTank];
                     movementLimit = 150;
@@ -2304,7 +2402,7 @@ function GameCartoon() {
                     tank[currentTank].bounder.isPickable = false;
                     tankParticlesRight.emitter = tank[currentTank];
                     tankParticlesLeft.emitter = tank[currentTank];
-
+                    isFPressed=false;
                 }
                 else switchTanks();
             }
@@ -2429,7 +2527,7 @@ function GameCartoon() {
             console.log(alive[tankID]);
             if (alive[tankID]) {
                 if(frontHealthBar[tankID].scaling.x>0){
-                    healthPercentage[tankID] -= 20;
+                    healthPercentage[tankID] -= damage;
                     frontHealthBar[tankID].scaling.x = healthPercentage[tankID] / 100;
                     backHealthBar[tankID].scaling.x = healthPercentage[tankID] / 100;
                     frontHealthBar[tankID].position.x =  (1- (healthPercentage[tankID] / 100)) * -0.35;
@@ -2442,6 +2540,8 @@ function GameCartoon() {
                 else if (frontHealthBar[tankID].scaling.x < .5) {
                     healthBarMaterial[tankID].diffuseColor = BABYLON.Color3.Yellow();
                 }
+                else if(frontHealthBar[tankID].scaling.x >= .5)
+                    healthBarMaterial[tankID].diffuseColor = BABYLON.Color3.Green();
             }
         }
         else{setTimeout(function () {
@@ -2567,6 +2667,37 @@ function GameCartoon() {
         }, 2000);
     }
 
+    function generatePowerUp(powerup,powerupMaterial,taken,modelName,num){
+        for(var i=0;i<num;i++){
+            powerup[i] = BABYLON.Mesh.CreateBox("bullet", 1.5, scene);
+            powerup[i].position = new BABYLON.Vector3((Math.random() * (200 + 200) - 200),1,(Math.random() * (200 + 200) - 200));
+            powerup[i].checkCollisions = false;
+            powerupMaterial= new BABYLON.StandardMaterial("alpha", scene);
+            powerupMaterial.diffuseTexture = new BABYLON.Texture("images/box.png", scene);
+            taken[i]=false;
+            powerupMaterial.alpha = 1;
+            powerup[i].material=powerupMaterial;
+            powerup[i].visibility = true;
+            powerup[i].isPickable=true;
+            powerup[i].id = i;
+        }
+    }
+
+    function updatePowerUpPosition(){
+        for(var i=0;i<generatedBullets.length;i++){
+            generatedBullets[i].position = new BABYLON.Vector3((Math.random() * (200 + 200) - 200),1,(Math.random() * (200 + 200) - 200));
+        }
+        for(var i=0;i<generatedExtraDistance.length;i++){
+            generatedExtraDistance[i].position = new BABYLON.Vector3((Math.random() * (200 + 200) - 200),1,(Math.random() * (200 + 200) - 200));
+        }
+        for(var i=0;i<generatedDoubleDamage.length;i++){
+            generatedDoubleDamage[i].position = new BABYLON.Vector3((Math.random() * (200 + 200) - 200),1,(Math.random() * (200 + 200) - 200));
+        }
+        for(var i=0;i<generatedHealth.length;i++){
+            generatedHealth[i].position = new BABYLON.Vector3((Math.random() * (200 + 200) - 200),1,(Math.random() * (200 + 200) - 200));
+        }
+    }
+
     function createExplosion(x,y,z){
         if(bullet) {
             var fireSystem = new BABYLON.ParticleSystem("particles", 2000, scene);
@@ -2605,9 +2736,10 @@ function GameCartoon() {
     }
 
     function fire(){
-        if(!hasShot) {
+        if(!hasShot&&tankBullets[currentTank]>0) {
             createBullet();
             bulletSound.play();
+            tankBullets[currentTank]--;
             hasShot=true;
             models.forEach(function(model1){
                 bullet.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
@@ -2868,15 +3000,23 @@ function GameCartoon() {
 
         /*PLAYER_INFO*/
         document.getElementById("PlayerContainer").style.display = "block";
-        var PlayerTime = document.getElementById("PlayerTime");
-        var PlayerDistance = document.getElementById("PlayerDistance");
-        var countTime2 = setInterval(function() {
-            turnTimer--;
-            if((isWPressed||isSPressed)&&movementLimit>0)
-                movementLimit-=15;
-            PlayerTime.innerHTML = "Player " + (currentTank+1) + " time  left: " + turnTimer + "s";
-            PlayerDistance.innerHTML = "Player " + (currentTank+1) + " distance left: " + movementLimit + "m";
-            if(turnTimer <= 0) {
+        PlayerTime = document.getElementById("PlayerTime");
+        PlayerDistance = document.getElementById("PlayerDistance");
+        nBullets = document.getElementById("nBullets");
+        countTime2 = setInterval(function () {
+            if (turnTimer > 0)
+                turnTimer--;
+            if ((isWPressed || isSPressed) && movementLimit > 0)
+                movementLimit -= 15;
+            if (movementLimit <= 0 && !EngineIdle.isPlaying) {
+                EngineIdle.play();
+                EngineDriving.stop();
+            }
+            PlayerTime.innerHTML = "Player " + (currentTank + 1) + " time  left: " + turnTimer + "s";
+            PlayerDistance.innerHTML = "Player " + (currentTank + 1) + " distance left: " + movementLimit + "m";
+            if(tankBullets[currentTank])
+                nBullets.innerHTML = tankBullets[currentTank];
+            if (turnTimer <= 0 && !isFPressed) {
                 switchTanks();
                 countTime2;
             }
@@ -2918,7 +3058,6 @@ function GameCartoon() {
         binaryTask.onSuccess = function (task) {
             powerups = new BABYLON.Sound("powerups", task.data, scene, null, { loop: false, autoplay: false});
         }
-
     }
 
     function reset() {

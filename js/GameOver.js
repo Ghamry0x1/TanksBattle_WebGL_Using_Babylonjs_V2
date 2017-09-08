@@ -34,14 +34,5 @@ function GameOver() {
     };
     bgImage.src = "images/GameOverPage.png";
 
-    backSound.pause();
-    TankExplosion.pause();
-    bulletSound.pause();
-    BulletExplosion.pause();
-    EngineIdle.pause();
-    EngineDriving.pause();
-
-    document.getElementById("musicPlayer").play();
-
     document.getElementById("Winner").innerHTML = "PLAYER " + (lastAlive+1) + " WINS!";
 }
