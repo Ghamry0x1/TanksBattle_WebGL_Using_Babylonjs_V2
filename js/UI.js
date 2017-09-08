@@ -20,11 +20,9 @@ function intro() {
     document.getElementById("forestLockedBtn").style.display = "none";
 
     document.getElementById("backBtn").style.display = "none";
-    document.getElementById("rematchBtn").style.display = "none";
     document.getElementById("playBtn").style.display = "none";
     document.getElementById("creditsBtn").style.display = "none";
     document.getElementById("instructionsBtn").style.display = "none";
-    document.getElementById("mainmenuBtn").style.display = "none";
 
     document.getElementById("UICanvas").style.display = "none";
 
@@ -75,8 +73,6 @@ function UI() {
     document.getElementById("forestLockedBtn").style.display = "none";
 
     document.getElementById("backBtn").style.display = "none";
-    document.getElementById("rematchBtn").style.display = "none";
-    document.getElementById("mainmenuBtn").style.display = "none";
 
     document.getElementById("ModeCanvas").style.display = "none";
     document.getElementById("realBtn").style.display = "none";

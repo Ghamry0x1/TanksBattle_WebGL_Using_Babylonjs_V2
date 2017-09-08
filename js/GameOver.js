@@ -19,10 +19,8 @@ function GameOver() {
     document.getElementById("ModeCanvas").style.display = "none";
     document.getElementById("realBtn").style.display = "none";
     document.getElementById("cartoonBtn").style.display = "none";
-    document.getElementById("mainmenuBtn").style.display = "none";
 
     document.getElementById("GameOverCanvas").style.display = "inline";
-    document.getElementById("rematchBtn").style.display = "inline";
     document.getElementById("WinnerContainer").style.display = "inline";
 
     var canvas = document.getElementById("GameOverCanvas");
