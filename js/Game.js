@@ -105,6 +105,8 @@ function Game() {
     var plant = [];
     var snowTree1 = [];
     var snowTreeLeaf1 = [];
+    var snowTree2 = [];
+    var snowTreeLeaf2 = [];
 
     var isWPressed = false;
     var isAPressed = false;
@@ -260,7 +262,7 @@ function Game() {
         for(var i=0;i<n;i++) {
             createTank(tankNames[i], i);
         }
-        designSandMap(true);
+        designSandMap();
 
         waitForIt(true);
     }
@@ -290,17 +292,17 @@ function Game() {
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
         palmTree = createModel("palmTree2.babylon", "tree material", "images/Leaf_CoconutGree.png",modelsPositions, 1.5, 1.5, 1, 60);
         modelsPositions= [];
-        for(var i=0;i<30;i++)
+        for(var i=0;i<5;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-        for(var i=30;i<35;i++)
+        for(var i=5;i<7;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-        for(var i=35;i<45;i++)
+        for(var i=7;i<9;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-        for(var i=45;i<55;i++)
+        for(var i=9;i<11;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-        for(var i=55;i<60;i++)
+        for(var i=11;i<13;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-        palmTree1 = createModel("palmTree1.babylon", "tree material", "images/Leaf_CoconutGree1.png",modelsPositions, 5, 5, 5, 60);
+        palmTree1 = createModel("palmTree1.babylon", "tree material", "images/Leaf_CoconutGree1.png",modelsPositions, 5, 5, 5, 13);
         modelsPositions= [];
         for(var i=0;i<30;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
@@ -326,17 +328,17 @@ function Game() {
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
         palmTree3 = createModel("palmTree4.babylon", "material","images/Leaf_Palm.png",modelsPositions, 8, 8, 8, 60);
         modelsPositions= [];
-        for(var i=0;i<500;i++)
+        for(var i=0;i<200;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (60 +70) - 70), 0, (Math.random() * (100 +60) - 60)));
-        for(var i=500;i<700;i++)
+        for(var i=200;i<250;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (-110 +160) - 160), 0, (Math.random() * (-100 +160) - 160)));
-        for(var i=700;i<900;i++)
+        for(var i=250;i<300;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (140 -60) + 60), 0, (Math.random() * (-110 +160) - 160)));
-        for(var i=900;i<1100;i++)
+        for(var i=300;i<350;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (160 -120) + 120), 0, (Math.random() * (190 -130) + 130)));
-        for(var i=1100;i<1300;i++)
+        for(var i=350;i<400;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (-120 +170) - 170), 0, (Math.random() * (190 -150) + 150)));
-        grass = createModel("grass.babylon", "grass material", "images/Grass1.png",modelsPositions, 1.5, 1, 1.5, 1300);
+        grass = createModel("grass.babylon", "grass material", "images/Grass1.png",modelsPositions, 1.5, 1, 1.5, 400);
         modelsPositions=[];
         for(var i=0;i<30;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
@@ -537,8 +539,13 @@ function Game() {
         modelsPositions=[];
         for(var i=0;i<10;i++)
             modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
-        snowTree1 = createModel("snowTree1.babylon", "tree material","images/AM100_007_color_bark.jpg",modelsPositions, 2, 2, 2, 10);
+        snowTree1 = createModel("snowTree1.babylon", "tree material","images/SnowTexture.jpg",modelsPositions, 2, 2, 2, 10);
         snowTreeLeaf1 = createModel("snowTreeLeaf1.babylon", "tree material","images/SnowTexture.jpg",modelsPositions, 2, 2, 2, 10);
+        modelsPositions=[];
+        for(var i=0;i<10;i++)
+            modelsPositions.push(new BABYLON.Vector3((Math.random() * (200 +200) - 200), 0, (Math.random() * (200 +200) - 200)));
+        snowTree2 = createModel("snowTree2.babylon", "tree material","images/SnowTexture.jpg",modelsPositions, 4, 4, 4, 10);
+        snowTreeLeaf2 = createModel("snowTreeLeaf2.babylon", "tree material","images/SnowTexture.jpg",modelsPositions, 4, 4, 4, 10);
         modelsPositions=[];
 
     }
@@ -609,17 +616,6 @@ function Game() {
             generatePowerUp(generatedHealth ,generatedHealthMaterial,powerupTaken4, 4 ,3);
             assetsManager.onFinish = function (tasks) {
                 engine.runRenderLoop(function () {
-                    $('#mainmenuBtn').click(function() {
-                        onGame = false;
-                        reset();
-                        engine.stopRenderLoop();
-                    });
-                    $('#rematchBtn').click(function() {
-                        onGame = false;
-                        reset();
-                        engine.stopRenderLoop();
-                    });
-
                     if(onGame) {
                         if(gameOver == 0) {
                             scene.render();
@@ -1353,6 +1349,71 @@ function Game() {
                     }
                 }));
             });
+            generatedBullets.forEach(function (powerup) {
+                bullet.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                    trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                    parameter: {mesh: powerup}
+                }, function () {
+                    if(!bulletExploded) {
+                        bulletExploded=true;
+                        createExplosion(powerup.position.x, powerup.position.y, powerup.position.z);
+                        bullet.visibility = false;
+                        bulletFire.stop();
+                        bulletSmoke.stop();
+                        powerupTaken1[powerup.id] = true;
+                        powerup.visibility=false;
+                    }
+                }));
+            });
+            generatedHealth.forEach(function (powerup) {
+                bullet.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                    trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                    parameter: {mesh: powerup}
+                }, function () {
+                    if(!bulletExploded) {
+                        bulletExploded=true;
+                        createExplosion(powerup.position.x, powerup.position.y, powerup.position.z);
+                        bullet.visibility = false;
+                        bulletFire.stop();
+                        bulletSmoke.stop();
+                        powerupTaken2[powerup.id] = true;
+                        powerup.visibility=false;
+                    }
+                }));
+            });
+            generatedExtraDistance.forEach(function (powerup) {
+                bullet.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                    trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                    parameter: {mesh: powerup}
+                }, function () {
+                    if(!bulletExploded) {
+                        bulletExploded=true;
+                        createExplosion(powerup.position.x, powerup.position.y, powerup.position.z);
+                        bullet.visibility = false;
+                        bulletFire.stop();
+                        bulletSmoke.stop();
+                        powerupTaken3[powerup.id] = true;
+                        powerup.visibility=false;
+                    }
+                }));
+            });
+
+            generatedDoubleDamage.forEach(function (powerup) {
+                bullet.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                    trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                    parameter: {mesh: powerup}
+                }, function () {
+                    if(!bulletExploded) {
+                        bulletExploded=true;
+                        createExplosion(powerup.position.x, powerup.position.y, powerup.position.z);
+                        bullet.visibility = false;
+                        bulletFire.stop();
+                        bulletSmoke.stop();
+                        powerupTaken4[powerup.id] = true;
+                        powerup.visibility=false;
+                    }
+                }));
+            });
             setTimeout(function () {
                 switchTanks();
             }, 1500)
@@ -1557,16 +1618,16 @@ function Game() {
 
             if(modelName!=="grass.babylon"&&modelName !== "cow.babylon"&&modelName!=="grass.babylon"&&modelName!=="palmTree3.babylon"&&modelName!=="treeLeaf1.babylon"&&modelName!=="treeLeaf2.babylon") {
                 if(modelName!=="rocks1.babylon"&&modelName!=="rocks2.babylon")
-                for (var i = 0; i < positions.length; i++) {
-                    bulletDetector[i] = BABYLON.Mesh.CreateBox("bullet box", 1, scene);
-                    bulletDetector[i].material = new BABYLON.StandardMaterial("alpha", scene);
-                    bulletDetector[i].material.alpha = 0;
-                    bulletDetector[i].isVisible = true;
-                    bulletDetector[i].position = positions[i].clone();
-                    bulletDetector[i].position.y+=2;
-                    bulletDetector[i].scaling.y*=4;
-                    models.push(bulletDetector[i]);
-                }
+                    for (var i = 0; i < positions.length; i++) {
+                        bulletDetector[i] = BABYLON.Mesh.CreateBox("bullet box", 1, scene);
+                        bulletDetector[i].material = new BABYLON.StandardMaterial("alpha", scene);
+                        bulletDetector[i].material.alpha = 0;
+                        bulletDetector[i].isVisible = true;
+                        bulletDetector[i].position = positions[i].clone();
+                        bulletDetector[i].position.y+=2;
+                        bulletDetector[i].scaling.y*=4;
+                        models.push(bulletDetector[i]);
+                    }
                 else{
                     for (var i = 0; i < model.length; i++) {
                         models.push(model[i]);
@@ -1739,7 +1800,6 @@ function Game() {
         cameraLocked = true;
         healthBarReady = false;
         currentTank = 0;
-
         followCamera.dispose();
         bulletSmoke.dispose();
         bulletFire.dispose();
@@ -1760,16 +1820,16 @@ function Game() {
         scene.dispose();*/
 
         var delArr = [alive, modelsPositions, tankNames, tank, tanksPositions,
-        bustedTank, textPlaneTexture, frontHealthBar, backHealthBar, dynamicTexture,
-        healthBarMaterial, healthBarContainerMaterial, healthBarContainer,
-        healthPercentage, generatedBullets, generatedDoubleDamage, generatedExtraDistance,
-        generatedHealth, tankBullets, generatedBulletsMaterial, generatedDoubleDamageMaterial,
-        generatedExtraDistanceMaterial, generatedHealthMaterial, powerupTaken1,
-        powerupTaken2, powerupTaken3, powerupTaken4, models, cactus, radar ,cow,
-        helipad, oilStorage, palmTree3, palmTree2, palmTree1, palmTree, tree,
-        treeLeaf, tree2, treeLeaf2, grass, rocks2, rocks1, barrel, deadTree1,
-        deadTree2, deadTree3, deadTree4, deadTree5, snowMan, plant, snowTree1,
-        snowTreeLeaf1];
+            bustedTank, textPlaneTexture, frontHealthBar, backHealthBar, dynamicTexture,
+            healthBarMaterial, healthBarContainerMaterial, healthBarContainer,
+            healthPercentage, generatedBullets, generatedDoubleDamage, generatedExtraDistance,
+            generatedHealth, tankBullets, generatedBulletsMaterial, generatedDoubleDamageMaterial,
+            generatedExtraDistanceMaterial, generatedHealthMaterial, powerupTaken1,
+            powerupTaken2, powerupTaken3, powerupTaken4, models, cactus, radar ,cow,
+            helipad, oilStorage, palmTree3, palmTree2, palmTree1, palmTree, tree,
+            treeLeaf, tree2, treeLeaf2, grass, rocks2, rocks1, barrel, deadTree1,
+            deadTree2, deadTree3, deadTree4, deadTree5, snowMan, plant, snowTree1,
+            snowTreeLeaf1];
 
         healthBarReady = false;
         turnTimer = 15;
@@ -1829,10 +1889,6 @@ function Game() {
         plant = [];
         snowTree1 = [];
         snowTreeLeaf1 = [];
-
-
-
-
         alive = [];
         modelsPositions = [];
         tankNames = [];
@@ -1842,7 +1898,6 @@ function Game() {
         textPlaneTexture = [];
         frontHealthBar = [];
         backHealthBar = [];
-
         dynamicTexture = [];
         healthBarMaterial = [];
         healthBarContainerMaterial = [];
@@ -1851,7 +1906,6 @@ function Game() {
         generatedBullets = [];
         generatedDoubleDamage = [];
         generatedExtraDistance = [];
-
         generatedHealth = [];
         tankBullets = [];
         generatedBulletsMaterial = [];
@@ -2909,9 +2963,74 @@ function GameCartoon() {
                     }
                 }));
             });
+            generatedBullets.forEach(function (powerup) {
+                bullet.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                    trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                    parameter: {mesh: powerup}
+                }, function () {
+                    if(!bulletExploded) {
+                        bulletExploded=true;
+                        createExplosion(powerup.position.x, powerup.position.y, powerup.position.z);
+                        bullet.visibility = false;
+                        bulletFire.stop();
+                        bulletSmoke.stop();
+                        powerupTaken1[powerup.id] = true;
+                        powerup.visibility=false;
+                    }
+                }));
+            });
+            generatedHealth.forEach(function (powerup) {
+                bullet.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                    trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                    parameter: {mesh: powerup}
+                }, function () {
+                    if(!bulletExploded) {
+                        bulletExploded=true;
+                        createExplosion(powerup.position.x, powerup.position.y, powerup.position.z);
+                        bullet.visibility = false;
+                        bulletFire.stop();
+                        bulletSmoke.stop();
+                        powerupTaken2[powerup.id] = true;
+                        powerup.visibility=false;
+                    }
+                }));
+            });
+            generatedExtraDistance.forEach(function (powerup) {
+                bullet.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                    trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                    parameter: {mesh: powerup}
+                }, function () {
+                    if(!bulletExploded) {
+                        bulletExploded=true;
+                        createExplosion(powerup.position.x, powerup.position.y, powerup.position.z);
+                        bullet.visibility = false;
+                        bulletFire.stop();
+                        bulletSmoke.stop();
+                        powerupTaken3[powerup.id] = true;
+                        powerup.visibility=false;
+                    }
+                }));
+            });
+
+            generatedDoubleDamage.forEach(function (powerup) {
+                bullet.actionManager.registerAction(new BABYLON.ExecuteCodeAction({
+                    trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                    parameter: {mesh: powerup}
+                }, function () {
+                    if(!bulletExploded) {
+                        bulletExploded=true;
+                        createExplosion(powerup.position.x, powerup.position.y, powerup.position.z);
+                        bullet.visibility = false;
+                        bulletFire.stop();
+                        bulletSmoke.stop();
+                        powerupTaken4[powerup.id] = true;
+                        powerup.visibility=false;
+                    }
+                }));
+            });
             setTimeout(function () {
                 switchTanks();
-            },3000)
+            },3000);
         }
     }
 
