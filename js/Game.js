@@ -196,7 +196,6 @@ function Game() {
         tankNames.push("images/tank"+i+".jpg");
     }
     createScene();
-    //HUD();
 
 
 
@@ -1626,6 +1625,9 @@ function Game() {
         /*PLAYER_NAME_AND_HEALTH_BAR*/
         createHealthBar();
 
+        backSound.play();
+        EngineIdle.play();
+
         /*ADS*/
         document.getElementById("slider").style.display = "block";
 
@@ -1660,7 +1662,7 @@ function Game() {
     function loadSounds() {
         var binaryTask = assetsManager.addBinaryFileTask("backSound task", "AudioClips/backSound.mp3");
         binaryTask.onSuccess = function (task) {
-            backSound = new BABYLON.Sound("backSound", task.data, scene, null, { loop: true, autoplay: true, volume: .6});
+            backSound = new BABYLON.Sound("backSound", task.data, scene, null, { loop: true, autoplay: false, volume: .6});
         }
 
         binaryTask = assetsManager.addBinaryFileTask("TankExplosion task", "AudioClips/TankExplosion.mp3");
@@ -1680,7 +1682,7 @@ function Game() {
 
         binaryTask = assetsManager.addBinaryFileTask("EngineIdle task", "AudioClips/EngineIdle.mp3");
         binaryTask.onSuccess = function (task) {
-            EngineIdle = new BABYLON.Sound("EngineIdle", task.data, scene, null, { loop: true, autoplay: true, volume: .6});
+            EngineIdle = new BABYLON.Sound("EngineIdle", task.data, scene, null, { loop: true, autoplay: false, volume: .6});
         }
 
         binaryTask = assetsManager.addBinaryFileTask("BulletExplosion task", "AudioClips/BulletExplosion.mp3");
@@ -1902,7 +1904,6 @@ function GameCartoon() {
         tankNames.push("tank"+(i+1)+".babylon");
     }
     createScene();
-    HUD();
 
 
 
@@ -2081,6 +2082,7 @@ function GameCartoon() {
         generatePowerUp(generatedExtraDistance ,generatedExtraDistanceMaterial,powerupTaken3, 3 ,3);
         generatePowerUp(generatedHealth ,generatedHealthMaterial,powerupTaken4, 4 ,3);
         assetsManager.onFinish = function (tasks) {
+            HUD();
             engine.runRenderLoop(function () {
                 if(gameOver == 0) {
                     scene.render();
@@ -3049,6 +3051,9 @@ function GameCartoon() {
         /*PLAYER_NAME_AND_HEALTH_BAR*/
         createHealthBar();
 
+        backSound.play();
+        EngineIdle.play();
+
         /*ADS*/
         document.getElementById("slider").style.display = "block";
 
@@ -3080,7 +3085,7 @@ function GameCartoon() {
     function loadSounds() {
         var binaryTask = assetsManager.addBinaryFileTask("backSound task", "AudioClips/backSound.mp3");
         binaryTask.onSuccess = function (task) {
-            backSound = new BABYLON.Sound("backSound", task.data, scene, null, { loop: true, autoplay: true, volume: .6});
+            backSound = new BABYLON.Sound("backSound", task.data, scene, null, { loop: true, autoplay: false, volume: .6});
         }
 
         binaryTask = assetsManager.addBinaryFileTask("TankExplosion task", "AudioClips/TankExplosion.mp3");
@@ -3100,7 +3105,7 @@ function GameCartoon() {
 
         binaryTask = assetsManager.addBinaryFileTask("EngineIdle task", "AudioClips/EngineIdle.mp3");
         binaryTask.onSuccess = function (task) {
-            EngineIdle = new BABYLON.Sound("EngineIdle", task.data, scene, null, { loop: true, autoplay: true, volume: .6});
+            EngineIdle = new BABYLON.Sound("EngineIdle", task.data, scene, null, { loop: true, autoplay: false, volume: .6});
         }
 
         binaryTask = assetsManager.addBinaryFileTask("BulletExplosion task", "AudioClips/BulletExplosion.mp3");
