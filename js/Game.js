@@ -607,7 +607,6 @@ function Game() {
             generatePowerUp(generatedHealth ,generatedHealthMaterial,powerupTaken4, 4 ,3);
             assetsManager.onFinish = function (tasks) {
                 engine.runRenderLoop(function () {
-                    if(onGame) {
                         if(gameOver == 0) {
                             scene.render();
                             if(tank.length===n) {
@@ -717,13 +716,10 @@ function Game() {
                             checkGameOver();
                         }
                         else {
-                            //engine.stopRenderLoop();
                             GameOver();
                             var musicPlayer = document.getElementById("musicPlayer");
                             musicPlayer.play();
-                            reset();
                         }
-                    }
                 });
             };
         }
