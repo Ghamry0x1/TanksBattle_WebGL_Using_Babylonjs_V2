@@ -245,7 +245,6 @@ function Game() {
     }
 
     function createSandScene() {
-        console.log("creating sand scene");
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
@@ -372,7 +371,6 @@ function Game() {
     }
 
     function createFogScene() {
-        console.log("creating fog scene")
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
@@ -499,7 +497,6 @@ function Game() {
     }
 
     function createSnowScene() {
-        console.log("creating snow scene");
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
@@ -551,7 +548,6 @@ function Game() {
     }
 
     function createForestScene() {
-        console.log("creating forest scene");
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
@@ -599,7 +595,6 @@ function Game() {
 
     function waitForIt() {
         if(onGame) {
-            console.log("wait for it");
             loadAssetsManager();
 
             followCamera = createFollowCamera(currentTank);
@@ -630,8 +625,6 @@ function Game() {
                                             powerup.visibility = false;
                                             tankBullets[currentTank] += 2;
                                             powerups.play();
-                                            console.log("bullets taken");
-                                            console.log(tankBullets[currentTank]);
 
                                             document.getElementById("powerupText").innerHTML = "+2 BULLETS";
                                             $('#powerupText').fadeIn(1000);
@@ -660,7 +653,6 @@ function Game() {
                                             }
                                             if(healthPercentage[currentTank]>100)
                                                 healthPercentage[currentTank]=100
-                                            console.log("health taken");
                                         }
                                     }));
                                 });
@@ -680,7 +672,6 @@ function Game() {
 
                                             movementLimit += 75;
                                             turnTimer += 5;
-                                            console.log("extra distance taken");
                                         }
                                     }));
                                 });
@@ -699,7 +690,6 @@ function Game() {
                                             $('#powerupText').fadeOut(800);
 
                                             damage=40;
-                                            console.log("double damage taken");
                                         }
                                     }));
                                 });
@@ -775,7 +765,6 @@ function Game() {
     function createFollowCamera(tankID) {
         var camera = new BABYLON.FollowCamera("follow", new BABYLON.Vector3(0, 2, -20), scene);
         camera.lockedTarget = tank[tankID];
-        console.log(tankID);
         camera.radius = 15; // how far from the object to follow
         camera.heightOffset = 3; // how high above the object to place the camera
         camera.rotationOffset = 0; // the viewing angle
@@ -790,7 +779,6 @@ function Game() {
         var tankTask = assetsManager.addMeshTask("tank task", "", "GameObjects/", "tanks.babylon");
         tankTask.onSuccess = function (task) {
             var _tank;
-            console.log("createTank called");
             var newMeshes = task.loadedMeshes;
             var tankParent = BABYLON.Mesh.CreateBox("tank", 1, scene);
             tankParent.material = new BABYLON.StandardMaterial("alpha", scene);
@@ -1043,7 +1031,6 @@ function Game() {
     }
 
     function createHealthBar(){
-        console.log("tank length is "+tank.length);
         if(tank.length===n) {
             for (var i = 0; i < tank.length; i++) {
                 healthBarMaterial.push(new BABYLON.StandardMaterial("hb1mat", scene));
@@ -1085,9 +1072,7 @@ function Game() {
     }
 
     function updateHealthBar(tankID){
-        console.log(healthPercentage[tankID]);
         if(healthBarReady) {
-            console.log(alive[tankID]);
             if (alive[tankID]) {
                 if(frontHealthBar[tankID].scaling.x>0){
                     healthPercentage[tankID] -= damage;
@@ -1310,7 +1295,6 @@ function Game() {
     }
 
     function fire(){
-        console.log("tank"+(currentTank+1)+" "+tankBullets[currentTank]);
         if(!hasShot&&tankBullets[currentTank]>0) {
             createBullet();
             bulletSound.play();
@@ -1338,7 +1322,6 @@ function Game() {
                     if(!bulletExploded) {
                         var tankID = parseInt(tank1.bounder.name[tank1.bounder.name.length - 1]);
                         if (tankID !== currentTank) {
-                            console.log(tank1.bounder.name);
                             bulletExploded=true;
                             createExplosion(tank1.position.x, tank1.position.y, tank1.position.z);
                             updateHealthBar(tank.indexOf(tank1));
@@ -1438,7 +1421,6 @@ function Game() {
                 }, 100);
                 var hit = scene.pickWithRay(ray);
                 if(hit.pickedMesh) {
-                    console.log("mesh name is " + hit.pickedMesh.name);
                     if(hit.pickedMesh.name!=="ground"&&hit.pickedMesh.name!=="skyBox")
                         if (hit.pickedMesh.name.startsWith("tankBounder_")||hit.pickedMesh.name.startsWith("TankTracksRight_")||hit.pickedMesh.name.startsWith("TankTracksLeft_")) {
                             var tankID = parseInt(hit.pickedMesh.name[hit.pickedMesh.name.length - 1]);
@@ -1583,7 +1565,6 @@ function Game() {
     function createModel(modelName, materialName, modelColor,positions, x, y, z, num) {
         var modelTask = assetsManager.addMeshTask("model task", "", "GameObjects/", modelName);
         modelTask.onSuccess = function (task) {
-            console.log("createModel called");
             var newMeshes = task.loadedMeshes;
             var model = [];
             model[0] = newMeshes[0];
@@ -1604,7 +1585,6 @@ function Game() {
                 model[0].isPickable = false;
             }
             model = clone(model[0], num);
-            console.log(model.length);
             for (var i = 0; i < model.length; i++) {
                 var scale = Math.random() * 4.5 + 0.5;
                 model[i].scaling.x *= (x);
@@ -1721,103 +1701,6 @@ function Game() {
     }
 
     function reset() {
-        /*tankNames = [];
-        modelsPositions = [];
-        for(var i = 0;i<tank.length;i++)
-            tank[i].dispose();
-        for(var i = 0;i<textPlaneTexture.length;i++)
-            textPlaneTexture[i].dispose();
-        tanksPositions = [];
-        for(var i = 0;i<frontHealthBar.length;i++)
-            frontHealthBar[i].dispose();
-        for(var i = 0;i<backHealthBar.length;i++)
-            backHealthBar[i].dispose();
-        for(var i = 0;i<dynamicTexture.length;i++)
-            dynamicTexture[i].dispose();
-        for(var i = 0;i<healthBarMaterial.length;i++)
-            healthBarMaterial[i].dispose();
-        for(var i = 0;i<healthBarContainerMaterial.length;i++)
-            healthBarContainerMaterial[i].dispose();
-        for(var i = 0;i<healthBarContainer.length;i++)
-            healthBarContainer[i].dispose();
-        healthPercentage = [];
-        alive = [];
-        for(var i = 0;i<bustedTank.length;i++)
-            bustedTank[i].dispose();
-        for(var i = 0;i<cactus.length;i++)
-            cactus[i].dispose();
-        for(var i = 0;i<rocks1.length;i++)
-            rocks1[i].dispose();
-        for(var i = 0;i<rocks2.length;i++)
-            rocks2[i].dispose();
-        for(var i = 0;i<deadTree1.length;i++)
-            deadTree1[i].dispose();
-        for(var i = 0;i<deadTree2.length;i++)
-            deadTree2[i].dispose();
-        for(var i = 0;i<deadTree3.length;i++)
-            deadTree3[i].dispose();
-        for(var i = 0;i<deadTree4.length;i++)
-            deadTree4[i].dispose();
-        for(var i = 0;i<deadTree5.length;i++)
-            deadTree5[i].dispose();
-        for(var i = 0;i<models.length;i++)
-            models[i].dispose();
-        for(var i = 0;i<palmTree1.length;i++)
-            palmTree1[i].dispose();
-        for(var i = 0;i<palmTree2.length;i++)
-            palmTree2[i].dispose();
-        for(var i = 0;i<palmTree3.length;i++)
-            palmTree3[i].dispose();
-        for(var i = 0;i<treeLeaf.length;i++)
-            treeLeaf[i].dispose();
-        for(var i = 0;i<tree2.length;i++)
-            tree2[i].dispose();
-        for(var i = 0;i<treeLeaf2.length;i++)
-            treeLeaf2[i].dispose();
-        for(var i = 0;i<grass.length;i++)
-            grass[i].dispose();
-        for(var i = 0;i<rocks1.length;i++)
-            rocks1[i].dispose();
-        for(var i = 0;i<rocks2.length;i++)
-            rocks2[i].dispose();
-        for(var i = 0;i<generatedBullets.length;i++)
-            generatedBullets[i].dispose();
-        gameOver = 0;
-        currentTank = 0;
-        turnTimer = 15;
-        movementLimit = 150;
-        dontMove = false;
-        delayRayShot=false;
-        hasShot = false;
-        bulletExploded=false;
-        isWPressed = false;
-        isAPressed = false;
-        isSPressed = false;
-        isDPressed = false;
-        isFPressed = false;
-        isRPressed = false;
-        isTankReady = false;
-        cameraLocked = true;
-        healthBarReady = false;
-        currentTank = 0;
-        followCamera.dispose();
-        bulletSmoke.dispose();
-        bulletFire.dispose();
-        direction.dispose();
-        PlayerDistance.dispose();
-        PlayerTime.dispose();
-        backSound.stop();
-        TankExplosion.stop();
-        bulletSound.stop();
-        EngineIdle.stop();
-        EngineDriving.stop();
-        bullet.dispose();
-        light.dispose();
-        ground.dispose();
-        assetsManager.dispose();
-        canvas.dispose();
-        engine.dispose();
-        scene.dispose();*/
 
         var delArr = [alive, modelsPositions, tankNames, tank, tanksPositions,
             bustedTank, textPlaneTexture, frontHealthBar, backHealthBar, dynamicTexture,
@@ -1849,70 +1732,11 @@ function Game() {
         EngineDriving.pause();
         powerups.pause();
 
-        console.log("modelsPos array size before: " + modelsPositions.length);
-
         for(var p in delArr) {
             if(delArr[p]) {
                 delArr[p].length = 0;
             }
         }
-
-        console.log("modelsPos array size after: " + modelsPositions.length);
-        /*powerupTaken1 = [];
-        powerupTaken2 = [];
-        powerupTaken3 = [];
-        powerupTaken4 = [];
-        models = [];
-        cactus = [];
-        radar = [];
-        cow = [];
-        helipad = [];
-        oilStorage = [];
-        palmTree = [];
-        palmTree1 = [];
-        palmTree2 = [];
-        palmTree3 = [];
-        tree = [];
-        treeLeaf = [];
-        tree2 = [];
-        treeLeaf2 = [];
-        grass = [];
-        rocks1 = [];
-        rocks2 = [];
-        barrel = [];
-        deadTree1 = [];
-        deadTree2 = [];
-        deadTree3 = [];
-        deadTree4 = [];
-        deadTree5 = [];
-        snowMan = [];
-        plant = [];
-        snowTree1 = [];
-        snowTreeLeaf1 = [];
-        alive = [];
-        modelsPositions = [];
-        tankNames = [];
-        tank = [];
-        tanksPositions = [];
-        bustedTank = [];
-        textPlaneTexture = [];
-        frontHealthBar = [];
-        backHealthBar = [];
-        dynamicTexture = [];
-        healthBarMaterial = [];
-        healthBarContainerMaterial = [];
-        healthBarContainer = [];
-        healthPercentage = [];
-        generatedBullets = [];
-        generatedDoubleDamage = [];
-        generatedExtraDistance = [];
-        generatedHealth = [];
-        tankBullets = [];
-        generatedBulletsMaterial = [];
-        generatedDoubleDamageMaterial = [];
-        generatedExtraDistanceMaterial = [];
-        generatedHealthMaterial = [];*/
-
     }
 
     function checkGameOver(){
@@ -2128,7 +1952,6 @@ function GameCartoon() {
     }
 
     function createSandScene() {
-        console.log("creating sand scene");
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
@@ -2160,7 +1983,6 @@ function GameCartoon() {
     }
 
     function createFogScene() {
-        console.log("creating fog scene")
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
@@ -2195,7 +2017,6 @@ function GameCartoon() {
     }
 
     function createSnowScene() {
-        console.log("creating snow scene");
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
@@ -2219,7 +2040,6 @@ function GameCartoon() {
     }
 
     function createForestScene() {
-        console.log("creating forest scene");
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
         scene = new BABYLON.Scene(engine);
@@ -2251,7 +2071,6 @@ function GameCartoon() {
     }
 
     function waitForIt() {
-        console.log("wait for it");
         loadAssetsManager();
 
         followCamera = createFollowCamera(currentTank);
@@ -2281,8 +2100,6 @@ function GameCartoon() {
                                     powerup.visibility = false;
                                     tankBullets[currentTank] += 2;
                                     powerups.play();
-                                    console.log("bullets taken");
-                                    console.log(tankBullets[currentTank]);
 
                                     document.getElementById("powerupText").innerHTML = "+2 BULLETS";
                                     $('#powerupText').fadeIn(1000);
@@ -2310,8 +2127,7 @@ function GameCartoon() {
                                         updateHealthBar(currentTank);
                                     }
                                     if(healthPercentage[currentTank]>100)
-                                        healthPercentage[currentTank]=100
-                                    console.log("health taken");
+                                        healthPercentage[currentTank]=100;
                                 }
                             }));
                         });
@@ -2331,7 +2147,6 @@ function GameCartoon() {
 
                                     movementLimit += 75;
                                     turnTimer += 5;
-                                    console.log("extra distance taken");
                                 }
                             }));
                         });
@@ -2350,7 +2165,6 @@ function GameCartoon() {
                                     $('#powerupText').fadeOut(800);
 
                                     damage=40;
-                                    console.log("double damage taken");
                                 }
                             }));
                         });
@@ -2436,7 +2250,6 @@ function GameCartoon() {
     function createFollowCamera(tankID) {
         var camera = new BABYLON.FollowCamera("follow", new BABYLON.Vector3(0, 2, -20), scene);
         camera.lockedTarget = tank[tankID];
-        console.log(tankID);
         camera.radius = 10; // how far from the object to follow
         camera.heightOffset = 3; // how high above the object to place the camera
         camera.rotationOffset = 0; // the viewing angle
@@ -2451,7 +2264,6 @@ function GameCartoon() {
         var tankTask = assetsManager.addMeshTask("tank task", "", "GameObjects/", assetName);
         tankTask.onSuccess = function (task) {
             var _tank;
-            console.log("createTank called");
             var newMeshes = task.loadedMeshes;
             _tank = newMeshes[0];
             _tank.position = new BABYLON.Vector3(Math.floor((Math.random() * 100) + 1), 0, Math.floor((Math.random() * 100) + 1));
@@ -2669,7 +2481,6 @@ function GameCartoon() {
     }
 
     function createHealthBar(){
-        console.log("tank length is "+tank.length);
         if(tank.length===n) {
             for (var i = 0; i < tank.length; i++) {
                 healthBarMaterial.push(new BABYLON.StandardMaterial("hb1mat", scene));
@@ -2711,9 +2522,7 @@ function GameCartoon() {
     }
 
     function updateHealthBar(tankID){
-        console.log(healthPercentage[tankID]);
         if(healthBarReady) {
-            console.log(alive[tankID]);
             if (alive[tankID]) {
                 if(frontHealthBar[tankID].scaling.x>0){
                     healthPercentage[tankID] -= damage;
@@ -2952,7 +2761,6 @@ function GameCartoon() {
                     if(!bulletExploded) {
                         var tankID = parseInt(tank1.bounder.name[tank1.bounder.name.length - 1]);
                         if (tankID !== currentTank) {
-                            console.log(tank1.bounder.name);
                             bulletExploded=true;
                             createExplosion(tank1.position.x, tank1.position.y, tank1.position.z);
                             updateHealthBar(tank.indexOf(tank1));
@@ -3052,7 +2860,6 @@ function GameCartoon() {
                 }, 100);
                 var hit = scene.pickWithRay(ray);
                 if(hit.pickedMesh) {
-                    console.log("mesh name is " + hit.pickedMesh.name);
                     if(hit.pickedMesh.name!=="ground"&&hit.pickedMesh.name!=="skyBox")
                         if (hit.pickedMesh.name.startsWith("tankBounder_")||hit.pickedMesh.name.startsWith("TankTracksRight_")||hit.pickedMesh.name.startsWith("TankTracksLeft_")) {
                             var tankID = parseInt(hit.pickedMesh.name[hit.pickedMesh.name.length - 1]);
@@ -3197,7 +3004,6 @@ function GameCartoon() {
     function createModel(modelName, materialName, modelColor, x, y, z, num) {
         var modelTask = assetsManager.addMeshTask("model task", "", "GameObjects/", modelName);
         modelTask.onSuccess = function (task) {
-            console.log("createModel called");
             var newMeshes = task.loadedMeshes;
             var model = [];
             model[0] = newMeshes[0];
@@ -3216,7 +3022,6 @@ function GameCartoon() {
             }
 
             model = clone(model[0], num);
-            console.log(model.length);
             for (var i = 0; i < model.length; i++) {
                 var scale = Math.random() * 4.5 + 0.5;
                 model[i].scaling.x *= (x);
