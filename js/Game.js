@@ -1628,6 +1628,8 @@ function Game() {
         backSound.play();
         EngineIdle.play();
 
+        document.getElementById("BulletsContainer").style.display = "block";
+
         /*ADS*/
         document.getElementById("slider").style.display = "block";
 
@@ -3050,6 +3052,8 @@ function GameCartoon() {
     function HUD() {
         /*PLAYER_NAME_AND_HEALTH_BAR*/
         createHealthBar();
+
+        document.getElementById("BulletsContainer").style.display = "block";
 
         backSound.play();
         EngineIdle.play();
