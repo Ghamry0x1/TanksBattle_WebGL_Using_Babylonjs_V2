@@ -196,7 +196,7 @@ function Game() {
         tankNames.push("images/tank"+i+".jpg");
     }
     createScene();
-    HUD();
+    //HUD();
 
 
 
@@ -606,6 +606,7 @@ function Game() {
             generatePowerUp(generatedExtraDistance ,generatedExtraDistanceMaterial,powerupTaken3, 3 ,3);
             generatePowerUp(generatedHealth ,generatedHealthMaterial,powerupTaken4, 4 ,3);
             assetsManager.onFinish = function (tasks) {
+                HUD();
                 engine.runRenderLoop(function () {
                         if(gameOver == 0) {
                             scene.render();
