@@ -717,7 +717,7 @@ function Game() {
                             checkGameOver();
                         }
                         else {
-                            engine.stopRenderLoop();
+                            //engine.stopRenderLoop();
                             GameOver();
                             var musicPlayer = document.getElementById("musicPlayer");
                             musicPlayer.play();
